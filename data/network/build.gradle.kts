@@ -9,6 +9,7 @@ android {
 
 dependencies {
     api(project(":data:modeldto"))
+    api(project(":core:common"))
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization)
 }
