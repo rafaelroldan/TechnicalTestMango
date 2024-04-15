@@ -22,6 +22,9 @@ retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
 kotlinSerialization = "1.4.1"
 ksp = "1.8.10-1.0.9"
+uiTooling = "1.6.5"
+splashScreen = "1.1.0-rc01"
+navigationCompose = "2.7.7"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -54,7 +57,10 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "uiTooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "uiTooling" }
+splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }

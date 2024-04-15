@@ -10,12 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TechnicalTestMango"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
         <activity
-            android:name="com.rafaelroldan.feature.MainActivity"
+            android:name="com.rafaelroldan.ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.TechnicalTestMango">
+            android:theme="@style/Theme.App.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
