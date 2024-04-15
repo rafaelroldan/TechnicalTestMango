@@ -22,7 +22,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "TechnicalTestMango"
 include(":app")
-include(":data")
-include(":domain")
+include(":data:network")
+include(":data:modeldto")
+include(":data:repository")
+include(":domain:mappers")
+include(":domain:model")
+include(":domain:usecase")
 include(":core")
 include(":features")
