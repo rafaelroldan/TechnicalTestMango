@@ -1,6 +1,8 @@
 plugins {
     id("technicaltestmango.android.application")
+    id("kotlin-kapt")
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.hiltPlugin)
 }
 
 android {
@@ -20,11 +22,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
     namespace = "com.rafaelroldan.technicaltestmango"
 }
 
@@ -32,17 +29,10 @@ dependencies {
 
     api(project(":core:designsystem"))
     api(project(":ui"))
+    api(project(":data:network"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.hilt)
+    kapt(libs.hiltCompiler)
+
+    implementation(libs.retrofit.json)
 }

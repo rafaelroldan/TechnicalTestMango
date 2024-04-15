@@ -21,6 +21,7 @@ hiltExt = "1.0.0"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
 kotlinSerialization = "1.4.1"
+ksp = "1.8.10-1.0.9"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -33,9 +34,14 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "ui-test" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
+# Dependencies for DI
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hiltCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
 # Dependencies for data layer
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerializationJson" }
+retrofit-json = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 
 # Dependencies for ui layer
@@ -58,4 +64,6 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
