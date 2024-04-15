@@ -1,6 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
 import com.rafaelroldan.technicaltestmango.configureKotlinAndroid
-import com.rafaelroldan.technicaltestmango.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

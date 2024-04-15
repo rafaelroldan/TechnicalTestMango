@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.rafaelroldan.technicaltestmango.configureKotlinAndroid
+import com.rafaelroldan.technicaltestmango.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -14,7 +15,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
             extensions.configure<ApplicationExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
+                defaultConfig.targetSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
         }
     }
