@@ -36,6 +36,9 @@ android {
 
 dependencies {
 
+    api(project(":core:designsystem"))
+    api(project(":ui"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

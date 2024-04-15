@@ -13,7 +13,7 @@
         android:theme="@style/Theme.TechnicalTestMango"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.rafaelroldan.feature.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.TechnicalTestMango">
             <intent-filter>

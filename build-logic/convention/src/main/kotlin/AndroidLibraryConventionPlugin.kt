@@ -17,7 +17,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.minSdk = libs.findVersion("targetSdk").get().toString().toInt()
             }
             dependencies {
                 add("androidTestImplementation", kotlin("test"))
