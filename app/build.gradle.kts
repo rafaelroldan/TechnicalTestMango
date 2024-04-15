@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    id("technicaltestmango.android.application")
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
