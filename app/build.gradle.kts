@@ -31,6 +31,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    namespace = "com.rafaelroldan.technicaltestmango"
 }
 
 dependencies {

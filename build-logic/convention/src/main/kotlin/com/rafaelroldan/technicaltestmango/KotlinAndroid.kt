@@ -12,40 +12,35 @@ import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val Project.libs
-    get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+/**
+ * Configure base Kotlin with Android options
+ */
 internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk =  libs.findVersion("compileSdk").get().toString().toInt()
+        compileSdk = 34
 
         defaultConfig {
-            minSdk = libs.findVersion("minSdk").get().toString().toInt()
+            minSdk = 28
         }
 
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_17
         }
     }
-
-    configureKotlin()
-
-}
-
-internal fun Project.configureKotlinJvm() {
-    extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
     configureKotlin()
 }
 
+/**
+ * Configure base Kotlin options
+ */
 private fun Project.configureKotlin() {
+    // Use withType to workaround https://youtrack.jetbrains.com/issue/KT-55947
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
+            // Set JVM target to 17
             jvmTarget = JavaVersion.VERSION_17.toString()
             // Treat all Kotlin warnings as errors (disabled by default)
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties

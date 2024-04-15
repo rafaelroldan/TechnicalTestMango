@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "technicaltestmango"
+rootProject.name = "TechnicalTestMango"
 include(":app")
 include(":data")
 include(":domain")
