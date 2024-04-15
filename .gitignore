@@ -1,8 +1,6 @@
 *.iml
 .gradle
 .idea
-.idea/
-.idea/*
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -17,6 +15,4 @@
 .cxx
 local.properties
 
-# Project exclude paths
-/gradle/
 /.idea/
