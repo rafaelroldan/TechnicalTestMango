@@ -16,7 +16,6 @@ fun LandscapeImage(
 ){
     AsyncImage(
         model = image,
-        placeholder = painterResource(R.drawable.ic_launcher_background),
         contentDescription = null,
         contentScale = ContentScale.FillWidth,
         modifier = modifier.fillMaxWidth()

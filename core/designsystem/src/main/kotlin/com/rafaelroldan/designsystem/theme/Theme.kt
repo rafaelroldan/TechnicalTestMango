@@ -18,15 +18,15 @@ import androidx.core.view.WindowCompat
 import com.rafaelroldan.designsystem.ThemeBase
 
 private val DarkColorScheme = darkColorScheme(
-        primary = Purple80,
-        secondary = PurpleGrey80,
-        tertiary = Pink80
+        primary = Night,
+        secondary = Night,
+        tertiary = Night
 )
 
 private val LightColorScheme = lightColorScheme(
-        primary = Purple40,
-        secondary = PurpleGrey40,
-        tertiary = Pink40
+        primary = Night,
+        secondary = Night,
+        tertiary = Night
 
         /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -50,6 +50,7 @@ fun TechnicalTestMangoTheme(
         dynamicColor: Boolean = true,
         content: @Composable () -> Unit
 ) {
+    /*
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -59,6 +60,10 @@ fun TechnicalTestMangoTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+     */
+
+    val colorScheme = DarkColorScheme
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
