@@ -27,5 +27,4 @@ dependencies {
     debugImplementation(libs.ui.tooling)
 
     implementation(libs.coil)
-
 }

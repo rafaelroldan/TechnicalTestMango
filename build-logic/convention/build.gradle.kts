@@ -37,6 +37,5 @@ gradlePlugin {
             id = "technicaltestmango.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
-
     }
 }

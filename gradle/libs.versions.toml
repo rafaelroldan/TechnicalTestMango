@@ -16,7 +16,7 @@ activityCompose = "1.8.2"
 composeBom = "2024.04.00"
 appcompat = "1.6.1"
 material = "1.11.0"
-hilt = "2.47"
+hilt = "2.49"
 hiltNav = "1.2.0"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
@@ -24,7 +24,8 @@ kotlinSerialization = "1.5.0"
 uiTooling = "1.6.5"
 splashScreen = "1.1.0-rc01"
 navigationCompose = "2.7.7"
-coilVersion = "1.3.2"
+coilVersion = "2.4.0"
+spotlessVersion = "6.25.0"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -73,4 +74,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-
+spotlessPlugin = { id = "com.diffplug.spotless", version.ref = "spotlessVersion" }

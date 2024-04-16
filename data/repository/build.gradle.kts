@@ -12,5 +12,4 @@ dependencies {
     implementation(project(":data:network"))
 
     implementation(libs.androidx.core.ktx)
-
 }
