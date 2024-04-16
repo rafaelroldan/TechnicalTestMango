@@ -1,12 +1,14 @@
 package com.rafaelroldan.mappers.comic
 
 import com.rafaelroldan.dto.ComicDto
+import com.rafaelroldan.dto.imageUrl
 import com.rafaelroldan.mappers.Mapper
 import com.rafaelroldan.model.ComicModel
 import com.rafaelroldan.dto.result.Data
 import com.rafaelroldan.dto.result.Response
 import com.rafaelroldan.dto.result.Result
 import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 class ComicMapper @Inject constructor(
@@ -24,6 +26,9 @@ class ComicMapper @Inject constructor(
                         ComicModel(
                             id = comic.id ,
                             title = comic.title,
+                            image = comic.thumbnail.imageUrl() ,
+                            date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                                .format(comic.dates.first().date)
                         )
                     },
                     total = data.total

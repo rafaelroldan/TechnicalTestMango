@@ -26,6 +26,7 @@ class CharacterMapper @Inject constructor(
                             id = it.id ,
                             name = it.name ,
                             avatar = it.thumbnail.imageUrl(),
+                            description = it.description,
                             countListComics = it.comics.items?.size ?: 0
                         )
                     },

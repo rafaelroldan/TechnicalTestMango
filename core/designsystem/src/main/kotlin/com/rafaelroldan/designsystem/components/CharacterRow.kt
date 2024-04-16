@@ -17,11 +17,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.AsyncImage
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterRow(
     modifier: Modifier = Modifier,
@@ -45,8 +43,8 @@ fun CharacterRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Image(
-                painter = rememberImagePainter(data = characterAvatar),
+            AsyncImage(
+                model = characterAvatar,
                 contentDescription = null,
                 modifier = Modifier.size(45.dp)
             )
@@ -54,8 +52,7 @@ fun CharacterRow(
             Column(
                 Modifier
                     .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing8)
-                    .fillMaxWidth()
-                ,
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.Start
             ) {
