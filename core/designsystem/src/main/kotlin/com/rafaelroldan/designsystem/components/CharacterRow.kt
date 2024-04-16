@@ -19,13 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.placeholder
-import com.rafaelroldan.designsystem.R
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
-@OptIn(ExperimentalGlideComposeApi::class, ExperimentalCoilApi::class)
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CharacterRow(
     modifier: Modifier = Modifier,
