@@ -17,11 +17,10 @@ composeBom = "2024.04.00"
 appcompat = "1.6.1"
 material = "1.11.0"
 hilt = "2.47"
-hiltExt = "1.0.0"
+hiltNav = "1.0.0"
 retrofit = "2.11.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-kotlinSerialization = "1.4.1"
-ksp = "1.8.10-1.0.9"
+kotlinSerialization = "1.5.0"
 uiTooling = "1.6.5"
 splashScreen = "1.1.0-rc01"
 navigationCompose = "2.7.7"
@@ -39,7 +38,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 
 # Dependencies for DI
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hiltCompiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNav" }
 
 # Dependencies for data layer
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -71,5 +71,4 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kspPlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

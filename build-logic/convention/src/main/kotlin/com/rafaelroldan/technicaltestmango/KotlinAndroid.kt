@@ -31,6 +31,12 @@ internal fun Project.configureKotlinAndroid(
                 excludes += "/META-INF/{AL2.0,LGPL2.1}"
             }
         }
+        composeOptions {
+            kotlinCompilerExtensionVersion = libs.findVersion("kotlinCompile").get().toString()
+        }
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
     configureKotlin()

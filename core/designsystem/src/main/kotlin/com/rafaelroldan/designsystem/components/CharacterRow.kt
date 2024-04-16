@@ -20,11 +20,12 @@ fun CharacterRow(
     numComics: Int = 0,
     onViewCLickListener: (() -> Unit)? = null
 ){
-    Row {
+    Row(modifier = modifier
+        .clickable { onViewCLickListener?.invoke() },
+    ) {
         Image(
             modifier = modifier
                 .size(45.dp)
-                .clickable { onViewCLickListener?.invoke() }
             ,
             painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = ""

@@ -2,9 +2,9 @@ package com.rafaelroldan.technicaltestmango.di
 
 import com.google.gson.GsonBuilder
 import com.rafaelroldan.common.Utils.DATE_FORMAT
-import com.rafaelroldan.network.net.CharacterMarvelApi
-import com.rafaelroldan.network.net.ComicMarvelApi
-import com.rafaelroldan.network.net.QueryInterceptor
+import com.rafaelroldan.network.service.net.CharacterMarvelApi
+import com.rafaelroldan.network.service.net.ComicMarvelApi
+import com.rafaelroldan.network.service.net.QueryInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

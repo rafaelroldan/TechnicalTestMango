@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("technicaltestmango.android.application")
     id("kotlin-kapt")
@@ -14,6 +18,18 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val localProperties: Properties = Properties().apply {
+            load(FileInputStream(File(rootProject.rootDir, "local.properties")))
+        }
+        buildConfigField(
+            type = "String",
+            name = "MARVEL_PRIVATE_KEY",
+            value = localProperties.getProperty("MARVEL_PRIVATE_KEY") ?: "")
+        buildConfigField(
+            type = "String",
+            name = "MARVEL_PUBLIC_KEY",
+            value = localProperties.getProperty("MARVEL_PUBLIC_KEY") ?: "")
     }
 
     buildTypes {
@@ -27,12 +43,12 @@ android {
 
 dependencies {
 
-    api(project(":core:designsystem"))
-    api(project(":ui"))
-    api(project(":data:network"))
+    implementation(project(":ui"))
+    implementation(project(":data:network"))
 
     implementation(libs.hilt)
-    kapt(libs.hiltCompiler)
+    implementation(project(":data:repository"))
+    kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit.json)
 }

@@ -1,13 +1,14 @@
-package com.rafaelroldan.network.net
+package com.rafaelroldan.network.service.net
 
 import com.rafaelroldan.common.UtilCryptMD5.generateHash
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.Date
+import javax.inject.Inject
 
-class QueryInterceptor constructor(
-    private val privateKey: String,
-    private val publicKey: String
+class QueryInterceptor @Inject constructor(
+    @PrivateKey private val privateKey: String,
+    @PublicKey private val publicKey: String
 ): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()

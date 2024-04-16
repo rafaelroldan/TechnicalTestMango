@@ -10,6 +10,11 @@ android {
 dependencies {
     api(project(":data:modeldto"))
     api(project(":core:common"))
+
     api(libs.retrofit)
     implementation(libs.retrofit.kotlin.serialization)
+
+    implementation(libs.androidx.core.ktx)
+
+    api(libs.hilt)
 }

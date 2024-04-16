@@ -11,14 +11,13 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
 }
 
 dependencies {
 
     api(project(":core:designsystem"))
+    api(project(":domain:model"))
+    api(project(":domain:usecase"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -37,5 +36,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.hilt)
-    kapt(libs.hiltCompiler)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation)
 }

@@ -1,7 +1,7 @@
-package com.rafaelroldan.network.net
+package com.rafaelroldan.network.service.net
 
 import com.rafaelroldan.dto.CharacterDto
-import retrofit2.Response
+import com.rafaelroldan.dto.result.Response
 
 import retrofit2.http.GET
 import retrofit2.http.Path

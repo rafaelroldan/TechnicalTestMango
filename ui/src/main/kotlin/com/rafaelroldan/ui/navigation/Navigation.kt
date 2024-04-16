@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.rafaelroldan.ui.characterdetails.CharacterDetailsScreen
 import com.rafaelroldan.ui.characterlist.CharacterListScreen
 
+//TODO - Test NavHost
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
