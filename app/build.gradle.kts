@@ -17,21 +17,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        val localProperties: Properties =
-            Properties().apply {
-                load(FileInputStream(File(rootProject.rootDir, "local.properties")))
-            }
-        buildConfigField(
-            type = "String",
-            name = "MARVEL_PRIVATE_KEY",
-            value = localProperties.getProperty("MARVEL_PRIVATE_KEY") ?: "",
-        )
-        buildConfigField(
-            type = "String",
-            name = "MARVEL_PUBLIC_KEY",
-            value = localProperties.getProperty("MARVEL_PUBLIC_KEY") ?: "",
-        )
     }
 
     buildTypes {
@@ -46,11 +31,7 @@ android {
 dependencies {
 
     implementation(project(":ui"))
-    implementation(project(":data:network"))
 
     implementation(libs.hilt)
-    implementation(project(":data:repository"))
     kapt(libs.hilt.compiler)
-
-    implementation(libs.retrofit.json)
 }

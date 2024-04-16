@@ -1,4 +1,4 @@
-package com.rafaelroldan.technicaltestmango.di
+package com.rafaelroldan.usecase.di
 
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import com.rafaelroldan.usecase.character.GetCharacterUseCaseImpl

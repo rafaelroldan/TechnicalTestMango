@@ -1,4 +1,4 @@
-package com.rafaelroldan.technicaltestmango.di
+package com.rafaelroldan.network.di
 
 import com.google.gson.GsonBuilder
 import com.rafaelroldan.common.Utils.DATE_FORMAT

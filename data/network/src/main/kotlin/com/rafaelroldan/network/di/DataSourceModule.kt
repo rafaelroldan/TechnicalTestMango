@@ -1,4 +1,4 @@
-package com.rafaelroldan.technicaltestmango.di
+package com.rafaelroldan.network.di
 
 import com.rafaelroldan.network.remote.character.CharacterRemoteDataSource
 import com.rafaelroldan.network.remote.character.CharacterRemoteDataSourceImpl

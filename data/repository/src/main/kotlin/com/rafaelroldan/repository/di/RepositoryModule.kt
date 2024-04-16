@@ -1,4 +1,4 @@
-package com.rafaelroldan.technicaltestmango.di
+package com.rafaelroldan.repository.di
 
 import com.rafaelroldan.repository.character.CharacterRepository
 import com.rafaelroldan.repository.character.CharacterRepositoryImpl
