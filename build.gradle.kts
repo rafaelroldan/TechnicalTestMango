@@ -63,7 +63,7 @@ spotless {
         target("**/*.kt", "**/*.kts")
         targetExclude("**/build/**", "**/*.gradle.kts", "**/trusteer/**")
 
-        //ktlint()
+        // ktlint()
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
