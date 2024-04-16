@@ -11,12 +11,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.rafaelroldan.designsystem.components.ComicRow
 import com.rafaelroldan.designsystem.components.LandscapeImage
+import com.rafaelroldan.designsystem.components.skeleton.SkeletonLandscapeImage
 import com.rafaelroldan.designsystem.theme.TechnicalTestMangoTheme
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
@@ -32,13 +34,33 @@ fun CharacterDetailsScreen(
 
     val lazyState = rememberLazyListState()
 
+    LaunchedEffect(viewModel.characterResult) {
+        viewModel.characterResult.collect {
+            when(it){
+                CharacterDetailsResult.Loading -> {
+
+                }
+                CharacterDetailsResult.Success -> {
+
+                }
+                CharacterDetailsResult.Error -> {
+
+                }
+            }
+        }
+    }
+
     TechnicalTestMangoTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-            CharacterDetailsView(
-                character = viewModel.character,
-                comicList = viewModel.comicsList,
-                lazyState = lazyState
-            )
+            if(true){
+                SkeletonLandscapeImage()
+            }else{
+                CharacterDetailsView(
+                    character = viewModel.character,
+                    comicList = viewModel.comicsList,
+                    lazyState = lazyState
+                )
+            }
         }
     }
 }
