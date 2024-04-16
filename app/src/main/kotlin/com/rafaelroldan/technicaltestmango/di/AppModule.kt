@@ -11,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-
     @Provides
     @PrivateKey
     fun providePrivateKey(): String = BuildConfig.MARVEL_PRIVATE_KEY

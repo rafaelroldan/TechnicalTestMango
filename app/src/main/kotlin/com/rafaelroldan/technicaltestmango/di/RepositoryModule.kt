@@ -13,11 +13,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface RepositoryModule {
     @Binds
-    fun bindsCharacterRepository(
-        characterRepositoryImpl: CharacterRepositoryImpl
-    ): CharacterRepository
+    fun bindsCharacterRepository(characterRepositoryImpl: CharacterRepositoryImpl): CharacterRepository
+
     @Binds
-    fun bindsComicRepository(
-        comicRepositoryImpl: ComicRepositoryImpl
-    ): ComicRepository
+    fun bindsComicRepository(comicRepositoryImpl: ComicRepositoryImpl): ComicRepository
 }

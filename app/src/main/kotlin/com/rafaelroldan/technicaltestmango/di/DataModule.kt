@@ -18,37 +18,36 @@ import javax.inject.Qualifier
 @Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
-
     @Provides
     @ApiEndpoint
     fun provideApiEndpoint(): String = "https://gateway.marvel.com/"
 
     @Provides
-    fun provideOkHttpClient(
-        requestInterceptor: QueryInterceptor
-    ): OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(requestInterceptor)
-        .build()
+    fun provideOkHttpClient(requestInterceptor: QueryInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(requestInterceptor)
+            .build()
 
     @Provides
     fun provideRetrofitClient(
         @ApiEndpoint apiEndPoint: String,
-        okHttpClient: OkHttpClient
-    ): Retrofit = Retrofit.Builder()
-        .baseUrl(apiEndPoint)
-        .addConverterFactory(
-            GsonConverterFactory.create(
-            GsonBuilder().setDateFormat(DATE_FORMAT).create()
-        ))
-        .client(okHttpClient)
-        .build()
+        okHttpClient: OkHttpClient,
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(apiEndPoint)
+            .addConverterFactory(
+                GsonConverterFactory.create(
+                    GsonBuilder().setDateFormat(DATE_FORMAT).create(),
+                ),
+            )
+            .client(okHttpClient)
+            .build()
 
     @Provides
     fun provideCharacterMarvelApi(retrofit: Retrofit): CharacterMarvelApi = retrofit.create()
 
     @Provides
     fun provideComicMarvelApi(retrofit: Retrofit): ComicMarvelApi = retrofit.create()
-
 }
 
 @Retention(AnnotationRetention.BINARY)

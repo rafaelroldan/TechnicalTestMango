@@ -13,12 +13,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 interface DomainModule {
     @Binds
-    fun bindGetCharacterUseCase(
-        getCharacterUseCaseImpl: GetCharacterUseCaseImpl
-    ): GetCharacterUseCase
+    fun bindGetCharacterUseCase(getCharacterUseCaseImpl: GetCharacterUseCaseImpl): GetCharacterUseCase
 
     @Binds
-    fun bindGetComicUseCase(
-        getComicUseCaseImpl: GetComicUseCaseImpl
-    ): GetComicUseCase
+    fun bindGetComicUseCase(getComicUseCaseImpl: GetComicUseCaseImpl): GetComicUseCase
 }
