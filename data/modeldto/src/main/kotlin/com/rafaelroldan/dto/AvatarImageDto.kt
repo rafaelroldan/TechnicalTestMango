@@ -1,11 +1,11 @@
 package com.rafaelroldan.dto
 
-data class Thumbnail(
+data class AvatarImageDto(
     val extension: String,
     val path: String
 )
 
 //Todo - Test method
-fun Thumbnail.imageUrl(): String{
+fun AvatarImageDto.imageUrl(): String{
     return this.path+"."+this.extension
 }

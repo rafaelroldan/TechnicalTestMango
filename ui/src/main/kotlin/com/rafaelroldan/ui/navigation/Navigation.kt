@@ -1,8 +1,6 @@
 package com.rafaelroldan.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,35 +12,24 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavItem.CharacterList.route)
-    {
-        composable(NavItem.CharacterList) {
+        startDestination = NavItem.CharacterList.route
+    ) {
+        composable(
+            route = NavItem.CharacterList.route
+        ) {
             CharacterListScreen { characterId ->
                 navController.navigate(NavItem.CharacterDetail.createNavRoute(characterId))
             }
         }
-        composable(NavItem.CharacterDetail) { backStackEntry ->
+        composable(
+            route = NavItem.CharacterDetail.route,
+            arguments = NavItem.CharacterDetail.navArgs
+        ) { backStackEntry ->
+            val characterId = backStackEntry.arguments?.getInt(ARGUMENT_CHARACTER_DETAILS_ID)
+            requireNotNull(characterId)
             CharacterDetailsScreen(
-                characterId = backStackEntry.findArg(NavArgs.CharacterId)
+                characterId = characterId
             )
         }
     }
-}
-
-private fun NavGraphBuilder.composable(
-    navItem: NavItem,
-    content: @Composable (NavBackStackEntry) -> Unit
-) {
-    this.composable(
-        route = navItem.route,
-        arguments = navItem.args,
-    ){
-        content(it)
-    }
-}
-
-private inline fun <reified T> NavBackStackEntry.findArg(arg: NavArgs): T {
-    val value = arguments?.get(arg.key)
-    requireNotNull(value)
-    return value as T
 }

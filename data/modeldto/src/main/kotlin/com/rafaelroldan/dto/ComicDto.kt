@@ -17,6 +17,6 @@ data class ComicDto(
     val issn: String,
     val format: String,
     val pageCount: Int,
-    val dates: List<ComicDate>,
-    val thumbnail: Thumbnail,
+    val dates: List<ComicDateDto>,
+    val thumbnail: AvatarImageDto,
 )

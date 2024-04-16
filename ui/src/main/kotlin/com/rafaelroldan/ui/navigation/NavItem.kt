@@ -1,28 +1,25 @@
 package com.rafaelroldan.ui.navigation
 
+import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
 sealed class NavItem(
     val baseRoute: String,
-    private val navArgs: List<NavArgs> = emptyList()
+    val navArgs: List<NamedNavArgument> = emptyList()
 ) {
     val route = run {
-        val argKeys = navArgs.map { "{${it.key}}" }
+        val argKeys = navArgs.map { "{${it.name}}" }
         listOf(baseRoute)
             .plus(argKeys)
             .joinToString("/")
     }
-
-    val args = navArgs.map {
-        navArgument(it.key) { type = it.navType }
-    }
-    data object CharacterList: NavItem("characterListScreen")
-    data object CharacterDetail: NavItem("characterDetailScreen", listOf(NavArgs.CharacterId)){
+    data object CharacterList: NavItem(ROUTER_CHARACTER_LIST)
+    data object CharacterDetail: NavItem(ROUTER_CHARACTER_DETAILS, listOf(navArgument(ARGUMENT_CHARACTER_DETAILS_ID) { type = NavType.IntType })){
         fun createNavRoute(characterId: Int) = "$baseRoute/$characterId"
     }
 }
 
-enum class NavArgs(val key: String, val navType: NavType<*>) {
-    CharacterId("characterId", NavType.IntType)
-}
+const val ROUTER_CHARACTER_LIST = "characterListScreen"
+const val ROUTER_CHARACTER_DETAILS = "characterDetailScreen"
+const val ARGUMENT_CHARACTER_DETAILS_ID = "characterId"

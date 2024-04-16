@@ -4,7 +4,7 @@ data class CharacterDto(
     val id: Int,
     val name: String,
     val description: String,
-    val thumbnail: Thumbnail,
+    val thumbnail: AvatarImageDto,
     val comics: GenericListDto,
     val events: GenericListDto,
     val series: GenericListDto,
