@@ -6,6 +6,7 @@ import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.dto.result.Data
 import com.rafaelroldan.dto.result.Response
 import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.model.ComicModel
 import javax.inject.Inject
 
 class CharacterMapper @Inject constructor(
@@ -23,6 +24,7 @@ class CharacterMapper @Inject constructor(
                         CharacterModel(
                             id = it.id ,
                             name = it.name ,
+                            countListComics = it.comics.items?.size ?: 0
                         )
                     },
                     total = data.total

@@ -54,7 +54,7 @@ fun CharacterListView(
             items(items = characterList){ character ->
                 CharacterRow(
                     characterName = character.name,
-                    numComics = character.listComics.size,
+                    numComics = character.countListComics,
                     onViewCLickListener = {
                         onCharacterItemClick(character.id)
                     }
