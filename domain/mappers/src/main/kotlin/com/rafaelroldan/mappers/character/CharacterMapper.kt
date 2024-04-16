@@ -1,6 +1,7 @@
 package com.rafaelroldan.mappers.character
 
 import com.rafaelroldan.dto.CharacterDto
+import com.rafaelroldan.dto.imageUrl
 import com.rafaelroldan.mappers.Mapper
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.dto.result.Data
@@ -24,6 +25,7 @@ class CharacterMapper @Inject constructor(
                         CharacterModel(
                             id = it.id ,
                             name = it.name ,
+                            avatar = it.thumbnail.imageUrl(),
                             countListComics = it.comics.items?.size ?: 0
                         )
                     },
