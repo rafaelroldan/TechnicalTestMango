@@ -1,45 +1,63 @@
 package com.rafaelroldan.designsystem.components.skeleton
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
-fun SkeletonLandscapeImage(modifier: Modifier = Modifier) {
-    val color = animateColorAsState(
-        targetValue = if (isSystemInDarkTheme()) Color.DarkGray else Color.Red,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 500, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "skeletonLandscapeImageAnimation"
-    )
+fun SkeletonLandscapeImage(
+    modifier: Modifier = Modifier,
+    isLoading: Boolean,
+    contentAfterLoading: @Composable () -> Unit,
+) {
 
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .background(color.value)
-    )
-}
+    if(isLoading) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Box(
+                modifier = Modifier
+                    .height(ThemeConfig.theme.spacing.sizeSpacing450)
+                    .aspectRatio(1f)
+                    .shimmerEffect()
+            )
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewSkeletonLandscapeImage(){
-    Column {
-        SkeletonLandscapeImage()
+            Text(
+                text = "",
+                modifier = Modifier
+                    .height(ThemeConfig.theme.spacing.sizeSpacing40)
+                    .fillMaxWidth()
+                    .padding(
+                        top = ThemeConfig.theme.spacing.sizeSpacing20,
+                        start = ThemeConfig.theme.spacing.sizeSpacing100,
+                        end = ThemeConfig.theme.spacing.sizeSpacing100,
+                    )
+                    .shimmerEffect()
+            )
+
+            Text(
+                text = "",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(ThemeConfig.theme.spacing.sizeSpacing100)
+                    .padding(
+                        top = ThemeConfig.theme.spacing.sizeSpacing20,
+                        bottom = ThemeConfig.theme.spacing.sizeSpacing20,
+                        start = ThemeConfig.theme.spacing.sizeSpacing20,
+                        end = ThemeConfig.theme.spacing.sizeSpacing20,
+                    ).shimmerEffect()
+            )
+        }
+    } else {
+        contentAfterLoading()
     }
 }

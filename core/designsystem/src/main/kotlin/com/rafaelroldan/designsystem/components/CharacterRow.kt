@@ -1,6 +1,5 @@
 package com.rafaelroldan.designsystem.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
@@ -46,7 +44,7 @@ fun CharacterRow(
             AsyncImage(
                 model = characterAvatar,
                 contentDescription = null,
-                modifier = Modifier.size(45.dp)
+                modifier = Modifier.size(ThemeConfig.theme.spacing.sizeSpacing65)
             )
 
             Column(

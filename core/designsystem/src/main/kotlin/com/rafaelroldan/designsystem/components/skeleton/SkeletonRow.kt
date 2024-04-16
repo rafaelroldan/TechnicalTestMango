@@ -1,10 +1,11 @@
-package com.rafaelroldan.designsystem.components
+package com.rafaelroldan.designsystem.components.skeleton
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,23 +15,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.AsyncImage
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
-fun ComicRow(
+fun SkeletonRow(
     modifier: Modifier = Modifier,
-    name: String = "",
-    avatar: String = "",
-    description: String = "",
-    onViewCLickListener: (() -> Unit)? = null
-){
-
+) {
     Card(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onViewCLickListener?.invoke() },
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
             defaultElevation = ThemeConfig.theme.spacing.sizeSpacing2
         ),
@@ -41,10 +34,10 @@ fun ComicRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            AsyncImage(
-                model = avatar,
-                contentDescription = null,
-                modifier = Modifier.size(ThemeConfig.theme.spacing.sizeSpacing65)
+            Box(
+                modifier = Modifier
+                    .size(ThemeConfig.theme.spacing.sizeSpacing65)
+                    .shimmerEffect()
             )
 
             Column(
@@ -55,23 +48,21 @@ fun ComicRow(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    modifier = Modifier,
-                    text = "Title = $name"
+                    text = "",
+                    modifier = Modifier
+                        .height(ThemeConfig.theme.spacing.sizeSpacing20)
+                        .fillMaxWidth(0.6f)
+                        .shimmerEffect()
                 )
 
                 Text(
-                    modifier = Modifier,
-                    text = "Description = $description"
+                    text = "",
+                    modifier = Modifier
+                        .height(ThemeConfig.theme.spacing.sizeSpacing20)
+                        .fillMaxWidth(0.4f)
+                        .shimmerEffect()
                 )
             }
         }
-    }
-}
-
-@Preview()
-@Composable
-fun PreviewComicRow(){
-    Column {
-        ComicRow()
     }
 }
