@@ -1,5 +1,9 @@
 package com.rafaelroldan.ui.characterlist
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -111,8 +115,12 @@ fun CharacterListView(
             state = lazyState
         ){
 
-            if (isSearchBarVisible) {
-                stickyHeader {
+            stickyHeader {
+                AnimatedVisibility(
+                    visible = isSearchBarVisible,
+                    enter = expandVertically(animationSpec = tween(500)),
+                    exit = shrinkVertically(animationSpec = tween(500))
+                ) {
                     SearchBarWidget(
                         query = searchText,
                         onQueryChanged = {
