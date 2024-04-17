@@ -10,6 +10,7 @@ import com.rafaelroldan.dto.result.Result
 import com.rafaelroldan.model.ComicModel
 import javax.inject.Inject
 
+//TODO - Testing
 class CharacterMapper @Inject constructor(
 ) : Mapper<Response<CharacterDto>, Result<CharacterModel>> {
     override fun toDomainModel(value: Response<CharacterDto>): Result<CharacterModel> {

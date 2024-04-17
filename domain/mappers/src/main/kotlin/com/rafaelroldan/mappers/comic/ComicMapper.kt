@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 
+//TODO - Testing
 class ComicMapper @Inject constructor(
 ) : Mapper<Response<ComicDto>, Result<ComicModel>> {
     override fun toDomainModel(value: Response<ComicDto>): Result<ComicModel> {
