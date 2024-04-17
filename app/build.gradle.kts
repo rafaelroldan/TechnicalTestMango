@@ -10,7 +10,6 @@ android {
         applicationId = "com.rafaelroldan.technicaltestmango"
         versionCode = 1
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }

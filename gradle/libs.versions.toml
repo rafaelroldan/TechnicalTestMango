@@ -28,6 +28,7 @@ coilVersion = "2.4.0"
 spotlessVersion = "6.25.0"
 pagingVersion = "3.2.1"
 lifecycleRuntimeCompose = "2.7.0"
+navigationTesting = "2.7.7"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -39,6 +40,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "ui-test" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTesting" }
 
 # Dependencies for DI
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -73,6 +75,7 @@ android-paging-compose = { group = "androidx.paging", name = "paging-compose", v
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
