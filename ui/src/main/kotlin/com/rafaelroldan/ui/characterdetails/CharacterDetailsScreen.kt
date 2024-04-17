@@ -24,7 +24,6 @@ import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
-import kotlinx.coroutines.delay
 
 @Composable
 fun CharacterDetailsScreen(
@@ -33,7 +32,6 @@ fun CharacterDetailsScreen(
 ) {
 
     LaunchedEffect(Unit){
-        delay(Constants.DELAY_CONST)
         viewModel.getCharacter(characterId)
     }
 

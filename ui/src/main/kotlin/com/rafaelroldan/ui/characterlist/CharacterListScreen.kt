@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.rafaelroldan.common.Constants
 import com.rafaelroldan.designsystem.components.CharacterRow
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
@@ -82,7 +83,7 @@ fun CharacterListView(
 
             when(characterList.loadState.refresh) {
                 LoadState.Loading -> {
-                    items(10){
+                    items(Constants.PAGE_SIZE){
                         SkeletonRow(
                             modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
                         )

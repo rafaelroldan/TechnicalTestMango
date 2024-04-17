@@ -46,7 +46,7 @@ fun ComicRow(
 
             AsyncImage(
                 model = avatar,
-                placeholder = painterResource(id = R.drawable.ic_placeholder_background),
+                placeholder = painterResource(id = R.drawable.ic_splash),
                 contentDescription = null,
                 modifier = Modifier
                     .size(ThemeConfig.theme.spacing.sizeSpacing200)

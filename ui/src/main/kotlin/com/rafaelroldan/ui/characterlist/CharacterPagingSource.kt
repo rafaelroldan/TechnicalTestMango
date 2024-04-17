@@ -5,15 +5,12 @@ import androidx.paging.PagingState
 import com.rafaelroldan.common.Constants
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
-import kotlinx.coroutines.delay
 
 class CharacterPagingSource(
     private val repository: GetCharacterUseCase,
     val search: String,
 ): PagingSource<Int, CharacterModel>() {
     companion object {
-        const val PAGE_SIZE = 20
-
         private const val INITIAL_LOAD_SIZE = 0
     }
 
@@ -24,10 +21,9 @@ class CharacterPagingSource(
             val position = params.key ?: INITIAL_LOAD_SIZE
 
             var result: List<CharacterModel> = arrayListOf()
-            delay(Constants.DELAY_CONST)
             repository.getAllCharacter(
-                offset = position * PAGE_SIZE,
-                limit = PAGE_SIZE
+                offset = position * Constants.PAGE_SIZE,
+                limit = Constants.PAGE_SIZE
             ).collect{
                 result = it.data?.results ?: arrayListOf()
             }

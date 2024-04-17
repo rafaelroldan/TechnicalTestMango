@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.rafaelroldan.common.Constants
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,8 +55,8 @@ class CharacterListViewModel @Inject constructor(
     val productsSearchResults = search.debounce(300.milliseconds).flatMapLatest { query ->
         Pager(
             PagingConfig(
-                prefetchDistance = 20,
-                pageSize = 20,
+                prefetchDistance = Constants.PAGE_SIZE,
+                pageSize = Constants.PAGE_SIZE,
                 enablePlaceholders = false,
             )
         ) {
