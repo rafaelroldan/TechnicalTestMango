@@ -15,7 +15,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core:designsystem"))
+    api(project(":core:designsystem"))
     implementation(project(":domain:model"))
     implementation(project(":domain:usecase"))
 
@@ -25,7 +25,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.material3)
     implementation(libs.splash.screen)
-    implementation(libs.androidx.navigation.compose)
+    api(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
 
     testImplementation(libs.junit)
@@ -36,6 +36,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     androidTestImplementation(libs.androidx.navigation.testing)
+
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.hilt.compiler)
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)

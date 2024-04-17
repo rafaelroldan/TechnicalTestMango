@@ -1,4 +1,4 @@
-package com.rafaelroldan.ui
+package com.rafaelroldan.designsystem
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertHasClickAction

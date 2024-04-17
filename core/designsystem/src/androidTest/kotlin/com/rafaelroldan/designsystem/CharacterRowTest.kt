@@ -1,43 +1,44 @@
-package com.rafaelroldan.ui
+package com.rafaelroldan.designsystem
+
 
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.rafaelroldan.common.ConstantsTesting
-import com.rafaelroldan.designsystem.components.ComicRow
+import com.rafaelroldan.designsystem.components.CharacterRow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ComicRowTest {
+class CharacterRowTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
     @Before
-    fun beforeComicRow() {
+    fun beforeCharacterRow() {
         composeTestRule.setContent {
-            ComicRow(
-                name = "MarvelTest",
-                avatar = "",
-                description = "Description"
-            ){
+            CharacterRow(
+                characterName = "MarvelTest",
+                characterAvatar = "",
+                numComics = 0
+            ) {
 
             }
         }
     }
 
     @Test
-    fun testComicRowCanDisplay() {
+    fun testCharacterRowCanDisplay() {
         composeTestRule
-            .onNodeWithTag(ConstantsTesting.TEST_TAG_COMIC_ROW)
+            .onNodeWithTag(ConstantsTesting.TEST_TAG_CHARACTER_ROW)
             .assertIsDisplayed()
     }
 
     @Test
-    fun testComicRowHasClick() {
+    fun testCharacterRowHasClick() {
         composeTestRule
-            .onNodeWithTag(ConstantsTesting.TEST_TAG_COMIC_ROW)
+            .onNodeWithTag(ConstantsTesting.TEST_TAG_CHARACTER_ROW)
             .assertHasClickAction()
     }
 }
