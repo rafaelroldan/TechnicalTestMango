@@ -30,7 +30,9 @@ fun Navigation() {
             requireNotNull(characterId)
             CharacterDetailsScreen(
                 characterId = characterId
-            )
+            ){
+                navController.navigateUp()
+            }
         }
     }
 }

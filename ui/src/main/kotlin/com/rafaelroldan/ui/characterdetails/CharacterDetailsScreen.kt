@@ -7,8 +7,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -16,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.rafaelroldan.common.Constants
 import com.rafaelroldan.designsystem.components.ComicRow
 import com.rafaelroldan.designsystem.components.LandscapeImage
@@ -25,10 +36,12 @@ import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetailsScreen(
     viewModel: CharacterDetailsViewModel = hiltViewModel(),
-    characterId: Int
+    characterId: Int,
+    onBackNavigation:() -> Unit,
 ) {
 
     LaunchedEffect(Unit){
@@ -36,11 +49,27 @@ fun CharacterDetailsScreen(
     }
 
     val lazyState = rememberLazyListState()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     val isLoadingCharacter : Boolean = viewModel.characterResult.collectAsState(initial = CharacterDetailsResult.Loading).value != CharacterDetailsResult.Success
     val isLoadingComics : Boolean = viewModel.comicsListResult.collectAsState(initial = ComicListResult.Loading).value != ComicListResult.Success
 
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { onBackNavigation.invoke() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        }
+    ) { paddingValues ->
         CharacterDetailsView(
             character = viewModel.character,
             comicList = viewModel.comicsList,
