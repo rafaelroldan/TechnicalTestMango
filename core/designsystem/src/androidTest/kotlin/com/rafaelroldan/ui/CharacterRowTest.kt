@@ -1,7 +1,9 @@
 package com.rafaelroldan.ui
 
-import androidx.compose.material3.Text
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import com.rafaelroldan.designsystem.components.CharacterRow
 import org.junit.Rule
 import org.junit.Test
 
@@ -10,9 +12,16 @@ class CharacterRowTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun myTest() {
+    fun testCharacterRow() {
         composeTestRule.setContent {
-            Text("You can set any Compose content!")
+            CharacterRow(
+                characterName = "MarvelTest",
+                characterAvatar = "",
+                numComics = 0
+            )
         }
+        composeTestRule
+            .onNodeWithContentDescription("A")
+            .assertIsSelected()
     }
 }
