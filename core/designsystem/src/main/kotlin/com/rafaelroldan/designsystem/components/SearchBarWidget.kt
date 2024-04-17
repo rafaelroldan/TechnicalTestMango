@@ -56,7 +56,7 @@ fun SearchBarWidget(
                 ) {
                     Icon(
                         Icons.Default.Clear,
-                        contentDescription = "Clear search"
+                        contentDescription = null
                     )
                 }
             },

@@ -25,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -36,6 +37,7 @@ import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
+import com.rafaelroldan.designsystem.R
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,7 +64,7 @@ fun CharacterDetailsScreen(
                 title = {
                     Text(
                         modifier = Modifier,
-                        text = "SNGULAR",
+                        text = stringResource(R.string.app_bar),
                         textAlign = TextAlign.Center,
                         fontSize = 20.sp,
                         fontFamily = ThemeConfig.theme.font.actionsComic,
@@ -72,13 +74,13 @@ fun CharacterDetailsScreen(
                     IconButton(onClick = { onBackNavigation.invoke() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = null
                         )
                     }
                 },
                 scrollBehavior = scrollBehavior,
             )
-        }
+        },
     ) { paddingValues ->
         CharacterDetailsView(
             character = viewModel.character,
@@ -148,11 +150,11 @@ fun CharacterDetailsView(
                                     end = ThemeConfig.theme.spacing.sizeSpacing20,
                                     bottom = ThemeConfig.theme.spacing.sizeSpacing8,
                                 ),
-                            text = "Apariciones en comics",
+                            text = stringResource(R.string.character_details_related_comics),
                             textAlign = TextAlign.Center,
                             fontSize = 20.sp,
                             fontFamily = ThemeConfig.theme.font.comicHelvetic,
-                            fontWeight = FontWeight.Medium
+                            fontWeight = FontWeight.Medium,
                         )
                     }
                 }

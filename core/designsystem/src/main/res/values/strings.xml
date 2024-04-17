@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TechnicalTestMango</string>
+    <string name="app_bar">SNGULAR</string>
+    <string name="character_details_related_comics">Apariciones en comics</string>
+    <string name="character_list_search_label">Buscar Personaje</string>
+    <string name="character_list_search_placeholder">Escribe el nombre del personaje</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,6 +34,7 @@ import com.rafaelroldan.designsystem.components.skeleton.SkeletonGridRow
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
+import com.rafaelroldan.designsystem.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +57,7 @@ fun CharacterListScreen(
                 title = {
                     Text(
                         modifier = Modifier,
-                        text = "SNGULAR",
+                        text = stringResource(R.string.app_bar),
                         textAlign = TextAlign.Center,
                         fontSize = 20.sp,
                         fontFamily = ThemeConfig.theme.font.actionsComic,
@@ -67,12 +69,12 @@ fun CharacterListScreen(
                             viewModel.toggleIsSearchShowing()
                         },
                     ) {
-                        Icon(Icons.Default.Search, contentDescription = "Search Character")
+                        Icon(Icons.Default.Search, contentDescription = null)
                     }
                 },
                 scrollBehavior = scrollBehavior,
             )
-        }
+        },
     ) { paddingValues ->
 
         CharacterListView(
@@ -117,8 +119,8 @@ fun CharacterListView(
                             onSearchQueryChanged(it)
                         },
                         modifier = Modifier.fillMaxWidth(),
-                        label = "Buscar Personaje",
-                        placeholder = "Escribe el nombre del personaje",
+                        label = stringResource(R.string.character_list_search_label),
+                        placeholder = stringResource(R.string.character_list_search_placeholder),
                     )
                 }
             }
