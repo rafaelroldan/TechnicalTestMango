@@ -2,6 +2,7 @@ package com.rafaelroldan.ui.characterlist
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.rafaelroldan.common.Constants
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import kotlinx.coroutines.delay
@@ -23,7 +24,7 @@ class CharacterPagingSource(
             val position = params.key ?: INITIAL_LOAD_SIZE
 
             var result: List<CharacterModel> = arrayListOf()
-            delay(3000)
+            delay(Constants.DELAY_CONST)
             repository.getAllCharacter(
                 offset = position * PAGE_SIZE,
                 limit = PAGE_SIZE

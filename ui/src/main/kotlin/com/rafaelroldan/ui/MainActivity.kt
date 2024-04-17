@@ -1,19 +1,12 @@
 package com.rafaelroldan.ui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.rafaelroldan.common.Constants
 import com.rafaelroldan.designsystem.theme.TechnicalTestMangoTheme
-import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.ui.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -32,7 +25,7 @@ class MainActivity : ComponentActivity() {
             TechnicalTestMangoTheme {
                 Navigation()
                 LaunchedEffect(Unit){
-                    delay(3000)
+                    delay(Constants.DELAY_CONST)
                     isReady = false
                 }
             }

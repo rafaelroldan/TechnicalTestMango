@@ -11,7 +11,7 @@ android {
 dependencies {
 
     implementation(project(":data:repository"))
-    api(project(":domain:mappers"))
+    implementation(project(":domain:mappers"))
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.core.ktx)

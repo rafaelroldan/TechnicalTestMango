@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.rafaelroldan.common.Constants
 import com.rafaelroldan.designsystem.components.ComicRow
 import com.rafaelroldan.designsystem.components.LandscapeImage
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonLandscapeImage
@@ -32,7 +33,7 @@ fun CharacterDetailsScreen(
 ) {
 
     LaunchedEffect(Unit){
-        delay(3000)
+        delay(Constants.DELAY_CONST)
         viewModel.getCharacter(characterId)
     }
 

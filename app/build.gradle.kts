@@ -1,6 +1,3 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 plugins {
     id("technicaltestmango.android.application")
     id("kotlin-kapt")
