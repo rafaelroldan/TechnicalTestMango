@@ -3,12 +3,8 @@ package com.rafaelroldan.designsystem
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onParent
-import androidx.compose.ui.test.performTextInput
 import com.rafaelroldan.common.ConstantsTesting
 import com.rafaelroldan.designsystem.components.SearchBarWidget
 import org.junit.Before

@@ -29,6 +29,8 @@ spotlessVersion = "6.25.0"
 pagingVersion = "3.2.1"
 lifecycleRuntimeCompose = "2.7.0"
 navigationTesting = "2.7.7"
+coroutinesTesting = "1.8.1-Beta"
+mokkVersion = "1.13.10"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -41,7 +43,11 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "ui-test" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTesting" }
-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+android-coroutines-testing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTesting" }
+mokk = { group = "io.mockk", name = "mockk", version.ref = "mokkVersion" }
+mokk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mokkVersion" }
+mokk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mokkVersion" }
 
 # Dependencies for DI
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

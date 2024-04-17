@@ -3,13 +3,15 @@ package com.rafaelroldan.ui.characterlist
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.rafaelroldan.common.Constants
+import com.rafaelroldan.dto.result.Result
 import com.rafaelroldan.model.CharacterModel
-import com.rafaelroldan.usecase.character.GetCharacterUseCase
+import kotlinx.coroutines.flow.Flow
 
 class CharacterPagingSource(
-    private val repository: GetCharacterUseCase,
     val search: String,
-    val onPaginationEnd: ((Boolean)->Unit)? = null,
+    private val onPaginationEnd: ((Boolean)->Unit)? = null,
+    private val onGetCharacters: ((Int, Int) -> Flow<Result<CharacterModel>>),
+    private val onGetCharacterByName: ((Int, Int, String)-> Flow<Result<CharacterModel>>),
 ): PagingSource<Int, CharacterModel>() {
     companion object {
         private const val INITIAL_LOAD_SIZE = 0
@@ -25,20 +27,16 @@ class CharacterPagingSource(
             var result: List<CharacterModel> = arrayListOf()
 
             if(search.isEmpty()){
-                repository.getAllCharacter(
-                    offset = position * Constants.PAGE_SIZE,
-                    limit = Constants.PAGE_SIZE
-                ).collect{
-                    result = it.data?.results ?: arrayListOf()
-                }
+                onGetCharacters(position * Constants.PAGE_SIZE, Constants.PAGE_SIZE)
+                    .collect{
+                        result = it.data?.results ?: arrayListOf()
+                    }
             }else{
-                repository.getCharacterByStartName(
-                    offset = position * Constants.PAGE_SIZE,
-                    limit = Constants.PAGE_SIZE,
-                    nameStartsWith = search
-                ).collect{
-                    result = it.data?.results ?: arrayListOf()
-                }
+
+                onGetCharacterByName(position * Constants.PAGE_SIZE, Constants.PAGE_SIZE, search)
+                    .collect{
+                        result = it.data?.results ?: arrayListOf()
+                    }
             }
 
             val nextKey = if (result.isEmpty()) {

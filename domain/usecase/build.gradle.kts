@@ -18,4 +18,12 @@ dependencies {
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+
+    testImplementation(libs.mokk)
+    testImplementation(libs.mokk.android)
+    testImplementation(libs.mokk.agent)
+    androidTestImplementation(libs.mokk.android)
+    androidTestImplementation(libs.mokk.agent)
+
+    testImplementation(libs.android.coroutines.testing)
 }

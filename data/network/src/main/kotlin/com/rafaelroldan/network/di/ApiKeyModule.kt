@@ -19,4 +19,3 @@ class ApiKeyModule {
     @PublicKey
     fun providePublicKey(): String = BuildConfig.MARVEL_PUBLIC_KEY
 }
-

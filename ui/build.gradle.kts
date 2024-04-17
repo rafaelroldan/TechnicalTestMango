@@ -46,5 +46,4 @@ dependencies {
 
     implementation(libs.android.paging.runtime)
     implementation(libs.android.paging.compose)
-
 }

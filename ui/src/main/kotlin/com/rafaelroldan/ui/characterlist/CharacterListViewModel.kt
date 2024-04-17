@@ -15,8 +15,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flatMapMerge
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -59,11 +57,17 @@ class CharacterListViewModel @Inject constructor(
         )
     ) {
         CharacterPagingSource(
-            repository = characterUseCase,
             search = _search.value,
-        ){
-            paginationEnds.value = it
-        }
+            onPaginationEnd = {
+                paginationEnds.value = it
+            },
+            onGetCharacters = { offset, limit ->
+              characterUseCase.getAllCharacter(offset,limit)
+            },
+            onGetCharacterByName = { offset, limit, name ->
+                characterUseCase.getCharacterByStartName(offset,limit,name)
+            }
+        )
     }
 
     fun setSearch(query: String) {
