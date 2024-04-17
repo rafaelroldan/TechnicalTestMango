@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.rafaelroldan.designsystem.theme.TechnicalTestMangoTheme
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.ui.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +29,12 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
         setContent {
-            Navigation()
-            LaunchedEffect(Unit){
-                delay(3000)
-                isReady = false
+            TechnicalTestMangoTheme {
+                Navigation()
+                LaunchedEffect(Unit){
+                    delay(3000)
+                    isReady = false
+                }
             }
         }
     }

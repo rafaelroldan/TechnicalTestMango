@@ -1,5 +1,6 @@
 package com.rafaelroldan.designsystem.components
 
+import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
+import com.rafaelroldan.designsystem.R
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
@@ -43,13 +46,16 @@ fun ComicRow(
 
             AsyncImage(
                 model = avatar,
+                placeholder = painterResource(id = R.drawable.ic_placeholder_background),
                 contentDescription = null,
-                modifier = Modifier.size(ThemeConfig.theme.spacing.sizeSpacing65)
+                modifier = Modifier
+                    .size(ThemeConfig.theme.spacing.sizeSpacing200)
+                    .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing4),
             )
 
             Column(
                 Modifier
-                    .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing8)
+                    .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing4)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.Start

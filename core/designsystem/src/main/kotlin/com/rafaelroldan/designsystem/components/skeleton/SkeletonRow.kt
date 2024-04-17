@@ -15,11 +15,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
 fun SkeletonRow(
     modifier: Modifier = Modifier,
+    imageSize: Dp = ThemeConfig.theme.spacing.sizeSpacing65
 ) {
     Card(
         modifier = modifier
@@ -36,7 +38,7 @@ fun SkeletonRow(
 
             Box(
                 modifier = Modifier
-                    .size(ThemeConfig.theme.spacing.sizeSpacing65)
+                    .size(imageSize)
                     .shimmerEffect()
             )
 
@@ -50,8 +52,9 @@ fun SkeletonRow(
                 Text(
                     text = "",
                     modifier = Modifier
+                        .padding(bottom = ThemeConfig.theme.spacing.sizeSpacing8)
                         .height(ThemeConfig.theme.spacing.sizeSpacing20)
-                        .fillMaxWidth(0.6f)
+                        .fillMaxWidth(0.8f)
                         .shimmerEffect()
                 )
 
@@ -59,7 +62,7 @@ fun SkeletonRow(
                     text = "",
                     modifier = Modifier
                         .height(ThemeConfig.theme.spacing.sizeSpacing20)
-                        .fillMaxWidth(0.4f)
+                        .fillMaxWidth(0.6f)
                         .shimmerEffect()
                 )
             }

@@ -42,20 +42,18 @@ fun CharacterDetailsScreen(
     val isLoadingCharacter : Boolean = viewModel.characterResult.collectAsState(initial = CharacterDetailsResult.Loading).value != CharacterDetailsResult.Success
     val isLoadingComics : Boolean = viewModel.comicsListResult.collectAsState(initial = ComicListResult.Loading).value != ComicListResult.Success
 
-    TechnicalTestMangoTheme {
-        Scaffold(
-            content = { padding ->
-                CharacterDetailsView(
-                    character = viewModel.character,
-                    comicList = viewModel.comicsList,
-                    lazyState = lazyState,
-                    padding = padding,
-                    isLoadingHeader = isLoadingCharacter,
-                    isLoadingList = isLoadingComics
-                )
-            }
-        )
-    }
+    Scaffold(
+        content = { padding ->
+            CharacterDetailsView(
+                character = viewModel.character,
+                comicList = viewModel.comicsList,
+                lazyState = lazyState,
+                padding = padding,
+                isLoadingHeader = isLoadingCharacter,
+                isLoadingList = isLoadingComics
+            )
+        }
+    )
 }
 
 @Composable
@@ -88,6 +86,7 @@ fun CharacterDetailsView(
         if(isLoadingList){
             items(10){
                 SkeletonRow(
+                    imageSize = ThemeConfig.theme.spacing.sizeSpacing200,
                     modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
                 )
             }
@@ -101,8 +100,6 @@ fun CharacterDetailsView(
                 )
             }
         }
-
-
     }
 }
 
