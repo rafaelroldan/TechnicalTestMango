@@ -2,8 +2,6 @@ package com.rafaelroldan.common
 
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-
-//TODO - Test Method
 object UtilCryptMD5 {
     private fun md5(stringToHash: String): String {
         val md5 = "MD5"
