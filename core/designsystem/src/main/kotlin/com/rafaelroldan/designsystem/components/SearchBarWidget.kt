@@ -13,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +21,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
+import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
 fun SearchBarWidget(
@@ -35,7 +36,7 @@ fun SearchBarWidget(
     Box(
         modifier = modifier
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(8.dp),
+            .padding(ThemeConfig.theme.spacing.sizeSpacing8),
     ) {
         OutlinedTextField(
             value = query,
@@ -83,6 +84,15 @@ fun SearchBarWidget(
                 },
             ),
             modifier = Modifier.fillMaxWidth(),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedTextColor = ThemeConfig.theme.color.colorGrey,
+                unfocusedTextColor = ThemeConfig.theme.color.colorGrey,
+                focusedBorderColor = ThemeConfig.theme.color.colorGrey,
+                unfocusedBorderColor = ThemeConfig.theme.color.colorGrey,
+                cursorColor = ThemeConfig.theme.color.colorGrey,
+                focusedLabelColor = ThemeConfig.theme.color.colorGrey,
+                unfocusedLabelColor = ThemeConfig.theme.color.colorGrey,
+            )
         )
     }
 }

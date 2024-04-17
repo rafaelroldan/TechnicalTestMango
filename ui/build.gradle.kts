@@ -27,6 +27,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.splash.screen)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

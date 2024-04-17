@@ -4,16 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.rafaelroldan.common.Constants
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
@@ -29,12 +25,6 @@ class CharacterListViewModel @Inject constructor(
 
     private val _search = MutableStateFlow("")
 
-    private val _characterListResult = MutableSharedFlow<CharacterListResult>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
-    val characterListResult: SharedFlow<CharacterListResult> = _characterListResult
-
     val search = _search.asStateFlow()
         .stateIn(
             scope = viewModelScope,
@@ -43,6 +33,8 @@ class CharacterListViewModel @Inject constructor(
         )
 
     private val _isSearchShowing = MutableStateFlow(false)
+
+    var paginationEnds = MutableStateFlow(false)
 
     val isSearchShowing = _isSearchShowing.asStateFlow()
         .stateIn(
@@ -63,8 +55,10 @@ class CharacterListViewModel @Inject constructor(
             CharacterPagingSource(
                 repository = characterUseCase,
                 search = query,
-            )
-        }.flow.cachedIn(viewModelScope)
+            ){
+                paginationEnds.value = it
+            }
+        }.flow
     }
 
     fun setSearch(query: String) {
@@ -74,10 +68,4 @@ class CharacterListViewModel @Inject constructor(
     fun toggleIsSearchShowing() {
         _isSearchShowing.value = !_isSearchShowing.value
     }
-}
-
-sealed interface CharacterListResult {
-    data object Loading : CharacterListResult
-    data object Success : CharacterListResult
-    data object Error : CharacterListResult
 }

@@ -9,6 +9,7 @@ import com.rafaelroldan.usecase.character.GetCharacterUseCase
 class CharacterPagingSource(
     private val repository: GetCharacterUseCase,
     val search: String,
+    val onPaginationEnd: ((Boolean)->Unit)? = null,
 ): PagingSource<Int, CharacterModel>() {
     companion object {
         private const val INITIAL_LOAD_SIZE = 0
@@ -17,18 +18,31 @@ class CharacterPagingSource(
     override fun getRefreshKey(state: PagingState<Int, CharacterModel>): Int? = null
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterModel> {
+        onPaginationEnd?.invoke(false)
         return try {
             val position = params.key ?: INITIAL_LOAD_SIZE
 
             var result: List<CharacterModel> = arrayListOf()
-            repository.getAllCharacter(
-                offset = position * Constants.PAGE_SIZE,
-                limit = Constants.PAGE_SIZE
-            ).collect{
-                result = it.data?.results ?: arrayListOf()
+
+            if(search.isEmpty()){
+                repository.getAllCharacter(
+                    offset = position * Constants.PAGE_SIZE,
+                    limit = Constants.PAGE_SIZE
+                ).collect{
+                    result = it.data?.results ?: arrayListOf()
+                }
+            }else{
+                repository.getCharacterByStartName(
+                    offset = position * Constants.PAGE_SIZE,
+                    limit = Constants.PAGE_SIZE,
+                    nameStartsWith = search
+                ).collect{
+                    result = it.data?.results ?: arrayListOf()
+                }
             }
 
             val nextKey = if (result.isEmpty()) {
+                onPaginationEnd?.invoke(true)
                 null
             } else {
                 position + 1

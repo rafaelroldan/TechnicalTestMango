@@ -27,6 +27,7 @@ navigationCompose = "2.7.7"
 coilVersion = "2.4.0"
 spotlessVersion = "6.25.0"
 pagingVersion = "3.2.1"
+lifecycleRuntimeCompose = "2.7.0"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -71,6 +72,7 @@ android-paging-compose = { group = "androidx.paging", name = "paging-compose", v
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
