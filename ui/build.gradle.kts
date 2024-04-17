@@ -40,7 +40,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation)
 
-    implementation("androidx.paging:paging-runtime:3.2.1")
-    implementation("androidx.paging:paging-compose:3.2.1")
+    implementation(libs.android.paging.runtime)
+    implementation(libs.android.paging.compose)
 
 }

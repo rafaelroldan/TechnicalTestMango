@@ -26,6 +26,7 @@ splashScreen = "1.1.0-rc01"
 navigationCompose = "2.7.7"
 coilVersion = "2.4.0"
 spotlessVersion = "6.25.0"
+pagingVersion = "3.2.1"
 
 [libraries]
 # Dependencies Kotlin/Android
@@ -64,6 +65,8 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashScreen" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
+android-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "pagingVersion" }
+android-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingVersion" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "app" }
