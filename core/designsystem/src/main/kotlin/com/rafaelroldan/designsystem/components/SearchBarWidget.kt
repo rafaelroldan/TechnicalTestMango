@@ -18,9 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import com.rafaelroldan.common.ConstantsTesting
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
 @Composable
@@ -83,7 +85,9 @@ fun SearchBarWidget(
                     focusManager.clearFocus()
                 },
             ),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .testTag(ConstantsTesting.TEST_TAG_SEARCHBAR)
+                .fillMaxWidth(),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = ThemeConfig.theme.color.colorGrey,
                 unfocusedTextColor = ThemeConfig.theme.color.colorGrey,

@@ -15,9 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
+import com.rafaelroldan.common.ConstantsTesting
 import com.rafaelroldan.designsystem.R
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 
@@ -32,6 +34,7 @@ fun ComicRow(
 
     Card(
         modifier = modifier
+            .testTag(ConstantsTesting.TEST_TAG_COMIC_ROW)
             .fillMaxWidth()
             .clickable { onViewCLickListener?.invoke() },
         elevation = CardDefaults.cardElevation(

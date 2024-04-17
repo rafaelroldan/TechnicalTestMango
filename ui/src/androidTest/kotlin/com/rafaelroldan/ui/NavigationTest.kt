@@ -3,9 +3,10 @@ package com.rafaelroldan.ui
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.testing.TestNavHostController
+import com.rafaelroldan.common.ConstantsTesting.TEST_TAG_NAVIGATION_HOST
 import com.rafaelroldan.ui.navigation.Navigation
 import org.junit.Before
 
@@ -20,7 +21,7 @@ class NavigationTest {
     private lateinit var navController: TestNavHostController
 
     @Before
-    fun rallyNavHost() {
+    fun navigationNavHost() {
         composeTestRule.setContent {
             navController = TestNavHostController(LocalContext.current)
             navController.navigatorProvider.addNavigator(
@@ -34,7 +35,7 @@ class NavigationTest {
     fun navigationNavHost_verifyOverviewStartDestination() {
         composeTestRule.setContent {
             composeTestRule
-                .onNodeWithContentDescription("Overview Screen")
+                .onNodeWithTag(TEST_TAG_NAVIGATION_HOST)
                 .assertIsDisplayed()
         }
     }

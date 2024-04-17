@@ -16,7 +16,6 @@ android {
 dependencies {
 
     implementation(project(":core:designsystem"))
-    implementation(project(":core:common"))
     implementation(project(":domain:model"))
     implementation(project(":domain:usecase"))
 
