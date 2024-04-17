@@ -4,4 +4,6 @@
     <string name="character_details_related_comics">Apariciones en comics</string>
     <string name="character_list_search_label">Buscar Personaje</string>
     <string name="character_list_search_placeholder">Escribe el nombre del personaje</string>
+    <string name="dialog_generic_error">Error al obtener los datos</string>
+    <string name="dialog_retry">Reintentar</string>
 </resources>

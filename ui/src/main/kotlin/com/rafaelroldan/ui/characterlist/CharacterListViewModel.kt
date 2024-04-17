@@ -35,9 +35,18 @@ class CharacterListViewModel @Inject constructor(
 
     private val _isSearchShowing = MutableStateFlow(false)
 
+    val isSearchShowing = _isSearchShowing.asStateFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = false,
+        )
+
     var paginationEnds = MutableStateFlow(false)
 
-    val isSearchShowing = _isSearchShowing.asStateFlow()
+    private val _isErrorShowing = MutableStateFlow(false)
+
+    val isErrorShowing = _isErrorShowing.asStateFlow()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
@@ -76,5 +85,9 @@ class CharacterListViewModel @Inject constructor(
 
     fun toggleIsSearchShowing() {
         _isSearchShowing.value = !_isSearchShowing.value
+    }
+
+    fun toggleIsErrorShowing(isVisible: Boolean) {
+        _isErrorShowing.value = isVisible
     }
 }

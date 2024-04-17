@@ -39,6 +39,7 @@ import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.designsystem.R
+import com.rafaelroldan.designsystem.components.ErrorView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +53,7 @@ fun CharacterListScreen(
         viewModel.characterSearchResults.collectAsLazyPagingItems()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isSearchBarVisible by viewModel.isSearchShowing.collectAsStateWithLifecycle()
+    val isErrorShowing by viewModel.isErrorShowing.collectAsStateWithLifecycle()
     val search by viewModel.search.collectAsStateWithLifecycle()
     val paginationEnds by viewModel.paginationEnds.collectAsStateWithLifecycle()
 
@@ -68,12 +70,15 @@ fun CharacterListScreen(
                     )
                 },
                 actions = {
-                    IconButton(
-                        onClick = {
-                            viewModel.toggleIsSearchShowing()
-                        },
-                    ) {
-                        Icon(Icons.Default.Search, contentDescription = null)
+
+                    if(!isErrorShowing) {
+                        IconButton(
+                            onClick = {
+                                viewModel.toggleIsSearchShowing()
+                            },
+                        ) {
+                            Icon(Icons.Default.Search, contentDescription = null)
+                        }
                     }
                 },
                 scrollBehavior = scrollBehavior,
@@ -81,20 +86,30 @@ fun CharacterListScreen(
         },
     ) { paddingValues ->
 
-        CharacterListView(
-            modifier = Modifier.padding(paddingValues),
-            characterList = characterList,
-            lazyState = lazyState,
-            searchText = search,
-            isSearchBarVisible = isSearchBarVisible,
-            paginationEnds = paginationEnds,
-            onCharacterItemClick = {
-                onCharacterItemClick(it)
-            },
-            onSearchQueryChanged = {
-                viewModel.setSearch(it)
-            },
-        )
+        if(isErrorShowing){
+            ErrorView {
+                viewModel.toggleIsErrorShowing(false)
+                characterList.refresh()
+            }
+        }else{
+            CharacterListView(
+                modifier = Modifier.padding(paddingValues),
+                characterList = characterList,
+                lazyState = lazyState,
+                searchText = search,
+                isSearchBarVisible = isSearchBarVisible,
+                paginationEnds = paginationEnds,
+                onCharacterItemClick = {
+                    onCharacterItemClick(it)
+                },
+                onSearchQueryChanged = {
+                    viewModel.setSearch(it)
+                },
+                onError = {
+                    viewModel.toggleIsErrorShowing(true)
+                }
+            )
+        }
     }
 }
 
@@ -109,6 +124,7 @@ fun CharacterListView(
     paginationEnds: Boolean = false,
     onCharacterItemClick: (Int)->Unit,
     onSearchQueryChanged: (String)->Unit,
+    onError: ()->Unit
     ) {
         LazyColumn(
             modifier = modifier,
@@ -142,7 +158,7 @@ fun CharacterListView(
                     }
                 }
                 is LoadState.Error -> {
-                    //TODO implement error state
+                    onError.invoke()
                 }
                 else -> {
                     items(characterList.itemCount){index ->

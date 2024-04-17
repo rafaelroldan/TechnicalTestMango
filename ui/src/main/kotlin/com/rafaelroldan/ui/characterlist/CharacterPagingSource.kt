@@ -24,33 +24,44 @@ class CharacterPagingSource(
         return try {
             val position = params.key ?: INITIAL_LOAD_SIZE
 
-            var result: List<CharacterModel> = arrayListOf()
+            var responseResult: Result<CharacterModel>? = null
 
             if(search.isEmpty()){
                 onGetCharacters(position * Constants.PAGE_SIZE, Constants.PAGE_SIZE)
                     .collect{
-                        result = it.data?.results ?: arrayListOf()
+                        responseResult = it
                     }
             }else{
 
                 onGetCharacterByName(position * Constants.PAGE_SIZE, Constants.PAGE_SIZE, search)
                     .collect{
-                        result = it.data?.results ?: arrayListOf()
+                        responseResult = it
                     }
             }
 
-            val nextKey = if (result.isEmpty()) {
-                onPaginationEnd?.invoke(true)
-                null
-            } else {
-                position + 1
-            }
+            responseResult?.let { result ->
+                if(!result.error) {
 
-            return LoadResult.Page(
-                data = result,
-                prevKey = null,
-                nextKey = nextKey,
-            )
+                    val paginationList: List<CharacterModel> = result.data?.results ?: arrayListOf()
+
+                    val nextKey = if (paginationList.isEmpty()) {
+                        onPaginationEnd?.invoke(true)
+                        null
+                    } else {
+                        position + 1
+                    }
+
+                    LoadResult.Page(
+                        data = paginationList,
+                        prevKey = null,
+                        nextKey = nextKey,
+                    )
+                }else{
+                    LoadResult.Error(Exception())
+                }
+            } ?: run {
+                LoadResult.Error(Exception())
+            }
         } catch (e: Exception) {
             LoadResult.Error(e)
         }

@@ -38,6 +38,7 @@ import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
 import com.rafaelroldan.designsystem.R
+import com.rafaelroldan.designsystem.components.ErrorView
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,8 +56,9 @@ fun CharacterDetailsScreen(
     val lazyState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    val isLoadingCharacter : Boolean = viewModel.characterResult.collectAsState(initial = CharacterDetailsResult.Loading).value != CharacterDetailsResult.Success
-    val isLoadingComics : Boolean = viewModel.comicsListResult.collectAsState(initial = ComicListResult.Loading).value != ComicListResult.Success
+    val isLoadingCharacter : Boolean = viewModel.characterResult.collectAsState(initial = StateDetailsResult.Loading).value != StateDetailsResult.Success
+    val isLoadingComics : Boolean = viewModel.comicsListResult.collectAsState(initial = StateDetailsResult.Loading).value != StateDetailsResult.Success
+    val isErrorShowing : Boolean = viewModel.isErrorShowing.collectAsState(initial = StateDetailsResult.Loading).value == StateDetailsResult.Error
 
     Scaffold(
         topBar = {
@@ -82,14 +84,20 @@ fun CharacterDetailsScreen(
             )
         },
     ) { paddingValues ->
-        CharacterDetailsView(
-            character = viewModel.character,
-            comicList = viewModel.comicsList,
-            lazyState = lazyState,
-            padding = paddingValues,
-            isLoadingHeader = isLoadingCharacter,
-            isLoadingList = isLoadingComics
-        )
+        if(isErrorShowing){
+            ErrorView {
+                viewModel.retry(characterId)
+            }
+        }else {
+            CharacterDetailsView(
+                character = viewModel.character,
+                comicList = viewModel.comicsList,
+                lazyState = lazyState,
+                padding = paddingValues,
+                isLoadingHeader = isLoadingCharacter,
+                isLoadingList = isLoadingComics
+            )
+        }
     }
 }
 
