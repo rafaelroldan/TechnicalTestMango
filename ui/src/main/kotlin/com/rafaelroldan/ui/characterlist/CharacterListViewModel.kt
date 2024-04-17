@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.rafaelroldan.common.Constants
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.milliseconds
@@ -44,21 +47,23 @@ class CharacterListViewModel @Inject constructor(
         )
 
     @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val productsSearchResults = search.debounce(300.milliseconds).flatMapLatest { query ->
-        Pager(
-            PagingConfig(
-                prefetchDistance = Constants.PAGE_SIZE,
-                pageSize = Constants.PAGE_SIZE,
-                enablePlaceholders = false,
-            )
-        ) {
-            CharacterPagingSource(
-                repository = characterUseCase,
-                search = query,
-            ){
-                paginationEnds.value = it
-            }
-        }.flow
+    val characterSearchResults = search.debounce(300.milliseconds).flatMapLatest {
+        pager.flow
+    }.cachedIn(viewModelScope)
+
+    private val pager = Pager(
+        PagingConfig(
+            prefetchDistance = Constants.PAGE_SIZE,
+            pageSize = Constants.PAGE_SIZE,
+            enablePlaceholders = false,
+        )
+    ) {
+        CharacterPagingSource(
+            repository = characterUseCase,
+            search = _search.value,
+        ){
+            paginationEnds.value = it
+        }
     }
 
     fun setSearch(query: String) {

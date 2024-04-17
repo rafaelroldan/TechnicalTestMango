@@ -39,7 +39,7 @@ fun CharacterListScreen(
 
     val lazyState = rememberLazyListState()
     val characterList: LazyPagingItems<CharacterModel> =
-        viewModel.productsSearchResults.collectAsLazyPagingItems()
+        viewModel.characterSearchResults.collectAsLazyPagingItems()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
     val isSearchBarVisible by viewModel.isSearchShowing.collectAsStateWithLifecycle()
     val search by viewModel.search.collectAsStateWithLifecycle()
