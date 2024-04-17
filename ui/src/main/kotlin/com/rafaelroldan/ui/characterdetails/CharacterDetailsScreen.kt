@@ -20,7 +20,6 @@ import com.rafaelroldan.designsystem.components.ComicRow
 import com.rafaelroldan.designsystem.components.LandscapeImage
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonLandscapeImage
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
-import com.rafaelroldan.designsystem.theme.TechnicalTestMangoTheme
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
@@ -42,18 +41,16 @@ fun CharacterDetailsScreen(
     val isLoadingCharacter : Boolean = viewModel.characterResult.collectAsState(initial = CharacterDetailsResult.Loading).value != CharacterDetailsResult.Success
     val isLoadingComics : Boolean = viewModel.comicsListResult.collectAsState(initial = ComicListResult.Loading).value != ComicListResult.Success
 
-    Scaffold(
-        content = { padding ->
-            CharacterDetailsView(
-                character = viewModel.character,
-                comicList = viewModel.comicsList,
-                lazyState = lazyState,
-                padding = padding,
-                isLoadingHeader = isLoadingCharacter,
-                isLoadingList = isLoadingComics
-            )
-        }
-    )
+    Scaffold { paddingValues ->
+        CharacterDetailsView(
+            character = viewModel.character,
+            comicList = viewModel.comicsList,
+            lazyState = lazyState,
+            padding = paddingValues,
+            isLoadingHeader = isLoadingCharacter,
+            isLoadingList = isLoadingComics
+        )
+    }
 }
 
 @Composable

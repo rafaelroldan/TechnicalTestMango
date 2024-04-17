@@ -1,26 +1,32 @@
 package com.rafaelroldan.ui.characterlist
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rafaelroldan.model.CharacterModel
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
     private val characterUseCase: GetCharacterUseCase
 ) : ViewModel() {
 
-    var characterList by mutableStateOf<List<CharacterModel>>(mutableListOf())
+    private val _search = MutableStateFlow("")
 
     private val _characterListResult = MutableSharedFlow<CharacterListResult>(
         replay = 1,
@@ -28,29 +34,44 @@ class CharacterListViewModel @Inject constructor(
     )
     val characterListResult: SharedFlow<CharacterListResult> = _characterListResult
 
-    private val offset = mutableIntStateOf(0)
-    private val limit = mutableIntStateOf(20)
+    val search = _search.asStateFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = "",
+        )
 
-    init {
-        getCharacter()
+    private val _isSearchShowing = MutableStateFlow(false)
+
+    val isSearchShowing = _isSearchShowing.asStateFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = false,
+        )
+
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
+    val productsSearchResults = search.debounce(300.milliseconds).flatMapLatest { query ->
+        Pager(
+            PagingConfig(
+                prefetchDistance = 20,
+                pageSize = 20,
+                enablePlaceholders = false,
+            )
+        ) {
+            CharacterPagingSource(
+                repository = characterUseCase,
+                search = query,
+            )
+        }.flow.cachedIn(viewModelScope)
     }
 
-    private fun getCharacter(){
-        viewModelScope.launch {
-            _characterListResult.emit(CharacterListResult.Loading)
-            characterUseCase.getAllCharacter(
-                offset = offset.intValue,
-                limit = limit.intValue
-            ).collect{
-                if(it.error){
-                    _characterListResult.emit(CharacterListResult.Error)
-                } else {
-                    characterList = it.data?.results ?: arrayListOf()
-                    _characterListResult.emit(CharacterListResult.Success)
-                }
-            }
+    fun setSearch(query: String) {
+        _search.value = query
+    }
 
-        }
+    fun toggleIsSearchShowing() {
+        _isSearchShowing.value = !_isSearchShowing.value
     }
 }
 

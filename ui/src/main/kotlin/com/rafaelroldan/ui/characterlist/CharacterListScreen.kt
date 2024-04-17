@@ -4,20 +4,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.rafaelroldan.designsystem.components.CharacterRow
-import com.rafaelroldan.designsystem.components.ComicRow
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
-import com.rafaelroldan.ui.characterdetails.CharacterDetailsResult
 
 @Composable
 fun CharacterListScreen(
@@ -26,60 +23,65 @@ fun CharacterListScreen(
 ) {
 
     val lazyState = rememberLazyListState()
-
-    val isLoadingCharacterList : Boolean = viewModel.characterListResult.collectAsState(initial = CharacterListResult.Loading).value != CharacterListResult.Success
+    val characterList: LazyPagingItems<CharacterModel> = viewModel.productsSearchResults.collectAsLazyPagingItems()
+    val isLoadingCharacterList : Boolean = characterList.loadState.refresh == LoadState.Loading
 
     Column {
         CharacterListView (
-            characterList = viewModel.characterList,
+            characterList = characterList,
             lazyState = lazyState,
             isLoadingList = isLoadingCharacterList,
-            characterTotal = 0,
             onCharacterItemClick = {
                 onCharacterItemClick(it)
             },
-            onLoadMoreCharacter = {},
         )
     }
 }
 
 @Composable
 fun CharacterListView(
-    characterList: List<CharacterModel>,
+    characterList: LazyPagingItems<CharacterModel>,
     lazyState: LazyListState,
     isLoadingList: Boolean,
-    characterTotal: Int,
     onCharacterItemClick: (Int)->Unit,
-    onLoadMoreCharacter: ()->Unit,
     ) {
-    if(characterList.isNotEmpty()){
         LazyColumn(
-            state = lazyState,
-            modifier = Modifier
+            modifier = Modifier,
+            state = lazyState
         ){
-            if(isLoadingList){
-                items(10){
-                    SkeletonRow(
-                        modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
-                    )
+
+            when(characterList.loadState.refresh) {
+                LoadState.Loading -> {
+                    items(10){
+                        SkeletonRow(
+                            modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
+                        )
+                    }
                 }
-            }else{
-                itemsIndexed(items = characterList){ index, character ->
-                    CharacterRow(
-                        modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
-                        characterName = character.name,
-                        characterAvatar = character.avatar,
-                        numComics = character.countListComics,
-                        onViewCLickListener = {
-                            onCharacterItemClick(character.id)
+                is LoadState.Error -> {
+                    //TODO implement error state
+                }
+                else -> {
+                    items(characterList.itemCount){index ->
+                        characterList[index]?.let { character ->
+                            CharacterRow(
+                                modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
+                                characterName = character.name,
+                                characterAvatar = character.avatar,
+                                numComics = character.countListComics,
+                                onViewCLickListener = {
+                                    onCharacterItemClick(character.id)
+                                }
+                            )
                         }
-                    )
-                    if(index >= characterList.size - 1 &&
-                        characterList.size < characterTotal) {
-                        onLoadMoreCharacter()
+                    }
+
+                    item {
+                        SkeletonRow(
+                            modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
+                        )
                     }
                 }
             }
         }
-    }
 }
