@@ -42,7 +42,7 @@ class GetCharacterUseCaseTest: BaseTestCoroutine(){
     @Test
     fun `when we try get a character with pagination`() =
         runTest {
-            val response = Result<CharacterModel>(400, true , null)
+            val response = Result<CharacterModel>(200, false , null)
 
             coEvery { useCase.getAllCharacter(any(),any()) } returns flow {
                 emit(response)
@@ -50,6 +50,38 @@ class GetCharacterUseCaseTest: BaseTestCoroutine(){
 
             var result: Result<CharacterModel>? = null
             useCase.getAllCharacter(0,20).collect{
+                result = it
+            }
+            assertEquals( response, result )
+        }
+
+    @Test
+    fun `when we try get a character with id`() =
+        runTest {
+            val response = Result<CharacterModel>(200, false , null)
+
+            coEvery { useCase.getCharacterById(any()) } returns flow {
+                emit(response)
+            }
+
+            var result: Result<CharacterModel>? = null
+            useCase.getCharacterById(0).collect{
+                result = it
+            }
+            assertEquals( response, result )
+        }
+
+    @Test
+    fun `when we try get a character with name`() =
+        runTest {
+            val response = Result<CharacterModel>(200, false , null)
+
+            coEvery { useCase.getCharacterByStartName(any(),any(), any()) } returns flow {
+                emit(response)
+            }
+
+            var result: Result<CharacterModel>? = null
+            useCase.getCharacterByStartName(0,20, "name").collect{
                 result = it
             }
             assertEquals( response, result )

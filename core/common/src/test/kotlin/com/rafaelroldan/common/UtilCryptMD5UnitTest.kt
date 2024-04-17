@@ -12,6 +12,6 @@ class UtilCryptMD5UnitTest {
         val publicKey = "123456"
         val privateKey = "123456"
 
-        assertEquals(UtilCryptMD5.generateHash(time, privateKey, publicKey),"c158d787f65cfe2f32900b7f56935252")
+        assertEquals("c158d787f65cfe2f32900b7f56935252", UtilCryptMD5.generateHash(time, privateKey, publicKey))
     }
 }

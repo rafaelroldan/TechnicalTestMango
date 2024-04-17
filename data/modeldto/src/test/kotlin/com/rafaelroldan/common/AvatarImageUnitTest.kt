@@ -13,6 +13,6 @@ class AvatarImageUnitTest {
     )
     @Test
     fun testGenerateHash() {
-        assertEquals(avatar.imageUrl(),"http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg")
+        assertEquals("http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg", avatar.imageUrl())
     }
 }
