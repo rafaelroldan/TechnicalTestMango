@@ -1,10 +1,18 @@
 package com.rafaelroldan.ui.characterlist
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,6 +24,7 @@ import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterListScreen(
     viewModel: CharacterListViewModel = hiltViewModel(),
@@ -23,11 +32,31 @@ fun CharacterListScreen(
 ) {
 
     val lazyState = rememberLazyListState()
-    val characterList: LazyPagingItems<CharacterModel> = viewModel.productsSearchResults.collectAsLazyPagingItems()
-    val isLoadingCharacterList : Boolean = characterList.loadState.refresh == LoadState.Loading
+    val characterList: LazyPagingItems<CharacterModel> =
+        viewModel.productsSearchResults.collectAsLazyPagingItems()
+    val isLoadingCharacterList: Boolean = characterList.loadState.refresh == LoadState.Loading
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-    Column {
-        CharacterListView (
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {},
+                actions = {
+                    IconButton(
+                        onClick = {
+                            viewModel.toggleIsSearchShowing()
+                        },
+                    ) {
+                        Icon(Icons.Default.Search, contentDescription = "Search Character")
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        }
+    ) { paddingValues ->
+
+        CharacterListView(
+            modifier = Modifier.padding(paddingValues),
             characterList = characterList,
             lazyState = lazyState,
             isLoadingList = isLoadingCharacterList,
@@ -40,13 +69,14 @@ fun CharacterListScreen(
 
 @Composable
 fun CharacterListView(
+    modifier: Modifier = Modifier,
     characterList: LazyPagingItems<CharacterModel>,
     lazyState: LazyListState,
     isLoadingList: Boolean,
     onCharacterItemClick: (Int)->Unit,
     ) {
         LazyColumn(
-            modifier = Modifier,
+            modifier = modifier,
             state = lazyState
         ){
 
