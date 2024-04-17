@@ -1,12 +1,13 @@
 package com.rafaelroldan.designsystem.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -14,8 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.rafaelroldan.common.ConstantsTesting
@@ -41,33 +45,49 @@ fun CharacterRow(
         ),
         shape = RoundedCornerShape(ThemeConfig.theme.spacing.sizeSpacing8),
     ) {
-        Row(
-            modifier = Modifier,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
 
+        Box{
             AsyncImage(
                 model = characterAvatar,
                 placeholder = painterResource(id = R.drawable.ic_splash),
                 contentDescription = null,
-                modifier = Modifier.size(ThemeConfig.theme.spacing.sizeSpacing65)
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(2f)
+            )
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(
+                        top = ThemeConfig.theme.spacing.sizeSpacing8,
+                        end = ThemeConfig.theme.spacing.sizeSpacing20,
+                    )
+                    .drawBehind {
+                        drawCircle(
+                            color = ThemeConfig.theme.color.colorFaluRed,
+                            radius = (this.size.maxDimension / 1.5).toFloat()
+                        )
+                    },
+                text = numComics.toString(),
+                color = ThemeConfig.theme.color.colorWhite
             )
 
             Column(
                 Modifier
-                    .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing8)
+                    .background(ThemeConfig.theme.color.colorGrey60)
+                    .align(Alignment.BottomCenter)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
             ) {
                 Text(
-                    modifier = Modifier,
-                    text = "Name Character = $characterName"
-                )
-
-                Text(
-                    modifier = Modifier,
-                    text = "Number Comics = $numComics"
+                    modifier = Modifier.padding(ThemeConfig.theme.spacing.sizeSpacing4),
+                    text = characterName,
+                    color = ThemeConfig.theme.color.colorFaluRed,
+                    fontFamily = ThemeConfig.theme.font.comicHelvetic,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }

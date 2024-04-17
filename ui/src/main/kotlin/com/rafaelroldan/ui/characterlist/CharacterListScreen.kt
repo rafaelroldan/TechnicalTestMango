@@ -8,16 +8,19 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
@@ -26,6 +29,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.rafaelroldan.common.Constants
 import com.rafaelroldan.designsystem.components.CharacterRow
 import com.rafaelroldan.designsystem.components.SearchBarWidget
+import com.rafaelroldan.designsystem.components.skeleton.SkeletonGridRow
 import com.rafaelroldan.designsystem.components.skeleton.SkeletonRow
 import com.rafaelroldan.designsystem.theme.ThemeConfig
 import com.rafaelroldan.model.CharacterModel
@@ -47,8 +51,16 @@ fun CharacterListScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {},
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        modifier = Modifier,
+                        text = "SNGULAR",
+                        textAlign = TextAlign.Center,
+                        fontSize = 20.sp,
+                        fontFamily = ThemeConfig.theme.font.actionsComic,
+                    )
+                },
                 actions = {
                     IconButton(
                         onClick = {
@@ -114,7 +126,7 @@ fun CharacterListView(
             when(characterList.loadState.refresh) {
                 LoadState.Loading -> {
                     items(Constants.PAGE_SIZE){
-                        SkeletonRow(
+                        SkeletonGridRow(
                             modifier = Modifier.padding( all = ThemeConfig.theme.spacing.sizeSpacing8),
                         )
                     }

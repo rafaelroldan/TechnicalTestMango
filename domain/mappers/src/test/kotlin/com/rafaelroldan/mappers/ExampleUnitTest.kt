@@ -1,4 +1,4 @@
-package com.rafaelroldan.domain
+package com.rafaelroldan.mappers
 
 import org.junit.Test
 

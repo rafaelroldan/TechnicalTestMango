@@ -28,7 +28,7 @@ class ComicMapper @Inject constructor(
                             id = comic.id ,
                             title = comic.title,
                             image = comic.thumbnail.imageUrl() ,
-                            date = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                            date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
                                 .format(comic.dates.first().date)
                         )
                     },

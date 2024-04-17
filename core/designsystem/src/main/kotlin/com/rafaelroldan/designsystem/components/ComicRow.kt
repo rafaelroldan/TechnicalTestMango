@@ -1,6 +1,5 @@
 package com.rafaelroldan.designsystem.components
 
-import android.graphics.drawable.ColorDrawable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.rafaelroldan.common.ConstantsTesting
@@ -58,19 +58,23 @@ fun ComicRow(
 
             Column(
                 Modifier
-                    .padding(horizontal = ThemeConfig.theme.spacing.sizeSpacing4)
+                    .padding(end = ThemeConfig.theme.spacing.sizeSpacing8)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     modifier = Modifier,
-                    text = "Title = $name"
+                    text = name,
+                    fontFamily = ThemeConfig.theme.font.comicHelvetic,
+                    fontWeight = FontWeight.Medium
                 )
 
                 Text(
-                    modifier = Modifier,
-                    text = "Description = $description"
+                    modifier = Modifier.padding(top = ThemeConfig.theme.spacing.sizeSpacing20),
+                    text = description,
+                    fontFamily = ThemeConfig.theme.font.comicHelvetic,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
