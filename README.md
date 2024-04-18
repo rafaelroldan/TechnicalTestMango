@@ -6,35 +6,64 @@ Prueba técnica para proyecto de Mango
 
 ## Version
 
-- 0.0.1
+0.0.1
 
 ## Pre-requisites
 
 * Android Studio
+* Cuenta en https://developer.marvel.com/
 
 ## Installation
 
-Clone this repository and import to **Android Studio**
+Clonar este repositorio importandolo en **Android Studio**
 
-### Keystores:
+## Api
 
-ToDo - Define folders with keys for sign APK and ABB files
+Esta app esta provista de la siguiente Api
+https://developer.marvel.com/docs
 
-## Build Types
+### Keys:
 
-Todo - Define build types
+Crear una cuenta en el portal de desarrollador de marvel y generar las apikeys.
 
-## Product Flavors
+https://developer.marvel.com/account
 
-ToDO - Define product flavors
-
-## Build variants
-
-ToDo - Define build variants
+Definir en el fichero raiz de nuestro proyecto llamado "local.properties" la clave privada y pública de nuestra cuenta:
+```python
+MARVEL_PUBLIC_KEY = "Key pública"
+MARVEL_PRIVATE_KEY = "Key privada"
+```
 
 ## Dependencies
 
-ToDo - Add used libraries
+Enlace a librerías usadas:
+
+- Compose
+https://developer.android.com/courses/pathways/compose?hl=es-419
+
+- Hilt
+https://developer.android.com/training/dependency-injection/hilt-android
+
+- Navigation Compose
+https://developer.android.com/develop/ui/compose/navigation
+
+- Coil
+https://coil-kt.github.io/coil/compose/
+
+- Paging
+https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+
+- Retrofit
+https://square.github.io/retrofit/
+
+- Spotless
+https://github.com/diffplug/spotless
+
+- Catalogs
+https://developer.android.com/build/migrate-to-catalogs
+
+- Mockk
+https://mockk.io/ANDROID.html
 
 ## Created by
 
