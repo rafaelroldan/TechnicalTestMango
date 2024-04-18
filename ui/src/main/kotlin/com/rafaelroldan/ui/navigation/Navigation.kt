@@ -10,7 +10,6 @@ import com.rafaelroldan.common.ConstantsTesting.TEST_TAG_NAVIGATION_HOST
 import com.rafaelroldan.ui.characterdetails.CharacterDetailsScreen
 import com.rafaelroldan.ui.characterlist.CharacterListScreen
 
-//TODO - Test NavHost
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
