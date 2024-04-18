@@ -65,6 +65,11 @@ https://developer.android.com/build/migrate-to-catalogs
 - Mockk
 https://mockk.io/ANDROID.html
 
+## Screenshots
+
+![Alt text](https://i.postimg.cc/vmMsMwj7/Screenshot-20240418-081917.png)
+![Alt text](https://i.postimg.cc/Zqch5DtG/Screenshot-20240418-081947.png)
+
 ## Created by
 
 Rafael Roldán
