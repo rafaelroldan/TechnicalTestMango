@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.rafaelroldan.common.ConstantsTesting
 import com.rafaelroldan.designsystem.R
@@ -83,8 +84,9 @@ fun CharacterRow(
                 horizontalAlignment = Alignment.Start,
             ) {
                 Text(
-                    modifier = Modifier.padding(ThemeConfig.theme.spacing.sizeSpacing4),
+                    modifier = Modifier.padding(ThemeConfig.theme.spacing.sizeSpacing8),
                     text = characterName,
+                    fontSize = 26.sp,
                     color = ThemeConfig.theme.color.colorFaluRed,
                     fontFamily = ThemeConfig.theme.font.comicHelvetic,
                     fontWeight = FontWeight.Medium
