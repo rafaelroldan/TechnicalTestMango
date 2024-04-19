@@ -4,8 +4,8 @@ import com.rafaelroldan.dto.AvatarImageDto
 import com.rafaelroldan.dto.ComicDateDto
 import com.rafaelroldan.dto.ComicDto
 import com.rafaelroldan.dto.result.Data
-import com.rafaelroldan.dto.result.Response
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.dto.result.MarvelResponse
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.model.ComicModel
 import org.junit.Test
 
@@ -26,7 +26,7 @@ class ComicMapperUnitTest {
         )
         val comicDate = ComicDateDto(
             type = "String",
-            date = Date(),
+            date = SimpleDateFormat("dd/MM/yyyy").parse("17/04/2024") ?: Date(),
         )
 
         val dto = ComicDto(
@@ -48,7 +48,7 @@ class ComicMapperUnitTest {
             thumbnail = AvatarImageDto("1","2"),
         )
 
-        val response = Response<ComicDto>(
+        val response = MarvelResponse<ComicDto>(
             data = Data<ComicDto>(
                 count = 0,
                 limit = 0,
@@ -58,18 +58,6 @@ class ComicMapperUnitTest {
             )
         )
 
-        val result = Result<ComicModel>(
-            code = 200,
-            error = false,
-            data = Data<ComicModel>(
-                count = 0,
-                limit = 0,
-                offset = 0,
-                results = arrayListOf(model),
-                total=  0,
-            )
-        )
-
-        assertEquals(result,mapper.toDomainModel(response))
+        assertEquals(MarvelResult.Success(arrayListOf(model)),mapper.toDomainModel(response))
     }
 }

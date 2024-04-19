@@ -1,6 +1,6 @@
 package com.rafaelroldan.dto.result
 
-data class Response<SomeDto>(
+data class MarvelResponse<SomeDto>(
     val attributionHTML: String = "",
     val attributionText: String = "",
     val code: Int = 200,

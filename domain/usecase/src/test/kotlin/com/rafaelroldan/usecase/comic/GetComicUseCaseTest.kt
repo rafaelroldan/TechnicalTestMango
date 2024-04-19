@@ -1,6 +1,6 @@
 package com.rafaelroldan.usecase.comic
 
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.mappers.comic.ComicMapper
 import com.rafaelroldan.model.ComicModel
 import com.rafaelroldan.repository.comic.ComicRepository
@@ -42,13 +42,23 @@ class GetComicUseCaseTest: BaseTestCoroutine(){
     @Test
     fun `when we try get list comic from a character`() =
         runTest {
-            val response = Result<ComicModel>(200, false , null)
+            val response = MarvelResult.Success(
+                arrayListOf(
+                    ComicModel(
+                        id = 0,
+                        title = "aaaa",
+                        date = "aaaa",
+                        image = "aaaa"
+                    )
+                )
+
+            )
 
             coEvery { useCase.getComicByCharacter(any()) } returns flow {
                 emit(response)
             }
 
-            var result: Result<ComicModel>? = null
+            var result: MarvelResult<List<ComicModel>>? = null
             useCase.getComicByCharacter(0).collect{
                 result = it
             }

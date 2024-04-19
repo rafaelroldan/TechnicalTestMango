@@ -3,15 +3,15 @@ package com.rafaelroldan.ui.characterlist
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.rafaelroldan.common.Constants
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.model.CharacterModel
 import kotlinx.coroutines.flow.Flow
 
 class CharacterPagingSource(
     val search: String,
     private val onPaginationEnd: ((Boolean)->Unit)? = null,
-    private val onGetCharacters: ((Int, Int) -> Flow<Result<CharacterModel>>),
-    private val onGetCharacterByName: ((Int, Int, String)-> Flow<Result<CharacterModel>>),
+    private val onGetCharacters: ((Int, Int) -> Flow<MarvelResult<List<CharacterModel>>>),
+    private val onGetCharacterByName: ((Int, Int, String)-> Flow<MarvelResult<List<CharacterModel>>>),
 ): PagingSource<Int, CharacterModel>() {
     companion object {
         private const val INITIAL_LOAD_SIZE = 0
@@ -24,7 +24,7 @@ class CharacterPagingSource(
         return try {
             val position = params.key ?: INITIAL_LOAD_SIZE
 
-            var responseResult: Result<CharacterModel>? = null
+            var responseResult: MarvelResult<List<CharacterModel>>? = null
 
             if(search.isEmpty()){
                 onGetCharacters(position * Constants.PAGE_SIZE, Constants.PAGE_SIZE)
@@ -40,9 +40,8 @@ class CharacterPagingSource(
             }
 
             responseResult?.let { result ->
-                if(!result.error) {
-
-                    val paginationList: List<CharacterModel> = result.data?.results ?: arrayListOf()
+                if(result is MarvelResult.Success) {
+                    val paginationList: List<CharacterModel> = result.data
 
                     val nextKey = if (paginationList.isEmpty()) {
                         onPaginationEnd?.invoke(true)

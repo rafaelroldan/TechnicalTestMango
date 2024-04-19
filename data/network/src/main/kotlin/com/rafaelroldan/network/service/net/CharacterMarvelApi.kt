@@ -1,7 +1,7 @@
 package com.rafaelroldan.network.service.net
 
 import com.rafaelroldan.dto.CharacterDto
-import com.rafaelroldan.dto.result.Response
+import com.rafaelroldan.dto.result.MarvelResponse
 
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,16 +12,16 @@ interface CharacterMarvelApi {
     suspend fun getAllCharacters(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
-    ): Response<CharacterDto>
+    ): MarvelResponse<CharacterDto>
 
     @GET("/v1/public/characters/{characterId}")
     suspend fun getCharacterById(
         @Path("characterId") characterId: Int,
-    ): Response<CharacterDto>
+    ): MarvelResponse<CharacterDto>
     @GET("/v1/public/characters")
     suspend fun getCharacterByStartName(
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
         @Query("nameStartsWith") nameStartsWith: String,
-    ): Response<CharacterDto>
+    ): MarvelResponse<CharacterDto>
 }

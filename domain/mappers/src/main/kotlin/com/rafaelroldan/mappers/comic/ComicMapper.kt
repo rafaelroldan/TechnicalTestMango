@@ -5,35 +5,44 @@ import com.rafaelroldan.dto.imageUrl
 import com.rafaelroldan.mappers.Mapper
 import com.rafaelroldan.model.ComicModel
 import com.rafaelroldan.dto.result.Data
-import com.rafaelroldan.dto.result.Response
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.dto.result.MarvelError
+import com.rafaelroldan.dto.result.MarvelResponse
+import com.rafaelroldan.mappers.MarvelResult
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 
 class ComicMapper @Inject constructor(
-) : Mapper<Response<ComicDto>, Result<ComicModel>> {
-    override fun toDomainModel(value: Response<ComicDto>): Result<ComicModel> {
-        return Result(
-            code = value.code,
-            error = value.data?.let { false } ?: true,
-            data = value.data?.let { data ->
+) : Mapper<MarvelResponse<ComicDto>, MarvelResult<List<ComicModel>>> {
+    override fun toDomainModel(value: MarvelResponse<ComicDto>): MarvelResult<List<ComicModel>> {
+
+        return if(value.error){
+            MarvelResult.Error(MarvelError.NetworkError(
+                message = value.status,
+                code = value.code
+            ))
+        } else {
+            val result = arrayListOf<ComicModel>()
+            value.data?.let { data ->
                 Data(
                     count = data.count,
                     limit = data.limit,
                     offset = data.offset,
-                    results = data.results.map { comic ->
-                        ComicModel(
-                            id = comic.id ,
-                            title = comic.title,
-                            image = comic.thumbnail.imageUrl() ,
+                    results = data.results.map {
+                        result.add(
+                            ComicModel(
+                            id = it.id ,
+                            title = it.title,
+                            image = it.thumbnail.imageUrl() ,
                             date = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-                                .format(comic.dates.first().date)
+                                .format(it.dates.first().date)
+                        )
                         )
                     },
                     total = data.total
                 )
             }
-        )
+            return MarvelResult.Success(result)
+        }
     }
 }

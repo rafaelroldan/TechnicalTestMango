@@ -1,8 +1,8 @@
 package com.rafaelroldan.repository.character
 
 import com.rafaelroldan.dto.CharacterDto
+import com.rafaelroldan.dto.result.MarvelResponse
 import com.rafaelroldan.network.remote.character.CharacterRemoteDataSource
-import com.rafaelroldan.dto.result.Response
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -11,24 +11,24 @@ import javax.inject.Inject
 class CharacterRepositoryImpl @Inject constructor(
     private val network: CharacterRemoteDataSource
 ): CharacterRepository {
-    override fun getAllCharacter(offset: Int, limit: Int): Flow<Response<CharacterDto>> =
+    override fun getAllCharacter(offset: Int, limit: Int): Flow<MarvelResponse<CharacterDto>> =
         flow {
-            emit(network.getAllCharacter(offset,limit))
+            emit( network.getAllCharacter(offset,limit))
         }.catch {
-            emit(Response(error = true))
+            emit(MarvelResponse(error = true))
         }
-    override fun getCharacterById(characterId: Int): Flow<Response<CharacterDto>> =
+    override fun getCharacterById(characterId: Int): Flow<MarvelResponse<CharacterDto>> =
         flow {
             emit(network.getCharacterById(characterId))
         }.catch {
-            emit(Response(error = true))
+            emit(MarvelResponse(error = true))
         }
 
     override fun getCharacterByStartName(
         offset: Int,
         limit: Int,
         nameStartsWith: String
-    ): Flow<Response<CharacterDto>> =
+    ): Flow<MarvelResponse<CharacterDto>> =
         flow {
             emit(
                 network.getCharacterByStartName(
@@ -38,6 +38,6 @@ class CharacterRepositoryImpl @Inject constructor(
                 )
             )
         }.catch {
-            emit(Response(error = true))
+            emit(MarvelResponse(error = true))
         }
 }

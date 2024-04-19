@@ -1,6 +1,6 @@
 package com.rafaelroldan.usecase.character
 
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.mappers.character.CharacterMapper
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.repository.character.CharacterRepository
@@ -42,13 +42,21 @@ class GetCharacterUseCaseTest: BaseTestCoroutine(){
     @Test
     fun `when we try get a character with pagination`() =
         runTest {
-            val response = Result<CharacterModel>(200, false , null)
+            val response = MarvelResult.Success(
+                arrayListOf(
+                    CharacterModel(
+                    id = 0,
+                    name = ""
+                    )
+                )
+
+            )
 
             coEvery { useCase.getAllCharacter(any(),any()) } returns flow {
                 emit(response)
             }
 
-            var result: Result<CharacterModel>? = null
+            var result: MarvelResult<List<CharacterModel>>? = null
             useCase.getAllCharacter(0,20).collect{
                 result = it
             }
@@ -58,13 +66,21 @@ class GetCharacterUseCaseTest: BaseTestCoroutine(){
     @Test
     fun `when we try get a character with id`() =
         runTest {
-            val response = Result<CharacterModel>(200, false , null)
+            val response = MarvelResult.Success(
+                arrayListOf(
+                    CharacterModel(
+                        id = 0,
+                        name = ""
+                    )
+                )
+
+            )
 
             coEvery { useCase.getCharacterById(any()) } returns flow {
                 emit(response)
             }
 
-            var result: Result<CharacterModel>? = null
+            var result: MarvelResult<List<CharacterModel>>? = null
             useCase.getCharacterById(0).collect{
                 result = it
             }
@@ -74,13 +90,21 @@ class GetCharacterUseCaseTest: BaseTestCoroutine(){
     @Test
     fun `when we try get a character with name`() =
         runTest {
-            val response = Result<CharacterModel>(200, false , null)
+            val response = MarvelResult.Success(
+                arrayListOf(
+                    CharacterModel(
+                        id = 0,
+                        name = ""
+                    )
+                )
+
+            )
 
             coEvery { useCase.getCharacterByStartName(any(),any(), any()) } returns flow {
                 emit(response)
             }
 
-            var result: Result<CharacterModel>? = null
+            var result: MarvelResult<List<CharacterModel>>? = null
             useCase.getCharacterByStartName(0,20, "name").collect{
                 result = it
             }

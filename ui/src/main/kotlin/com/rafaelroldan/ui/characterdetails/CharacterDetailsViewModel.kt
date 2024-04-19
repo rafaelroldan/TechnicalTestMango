@@ -1,11 +1,11 @@
 package com.rafaelroldan.ui.characterdetails
 
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.model.CharacterModel
 import com.rafaelroldan.model.ComicModel
 import com.rafaelroldan.usecase.character.GetCharacterUseCase
@@ -52,13 +52,13 @@ class CharacterDetailsViewModel @Inject constructor(
             characterUseCase.getCharacterById(
                 characterId
             ).collect{
-                if(it.error){
-                    _isErrorShowing.emit(StateDetailsResult.Error)
-                    _characterResult.emit(StateDetailsResult.Error)
-                } else {
-                    character = it.data?.results?.firstOrNull()
+                if(it is MarvelResult.Success){
+                    character = it.data.firstOrNull()
                     getComics(characterId)
                     _characterResult.emit(StateDetailsResult.Success)
+                } else {
+                    _isErrorShowing.emit(StateDetailsResult.Error)
+                    _characterResult.emit(StateDetailsResult.Error)
                 }
             }
 
@@ -71,12 +71,12 @@ class CharacterDetailsViewModel @Inject constructor(
             comicUseCase.getComicByCharacter(
                 characterId
             ).collect{
-                if(it.error){
+                if(it is MarvelResult.Success){
+                    comicsList = it.data
+                    _comicsListResult.emit(StateDetailsResult.Success)
+                } else {
                     _isErrorShowing.emit(StateDetailsResult.Error)
                     _comicsListResult.emit(StateDetailsResult.Error)
-                } else {
-                    comicsList = it.data?.results ?: arrayListOf()
-                    _comicsListResult.emit(StateDetailsResult.Success)
                 }
             }
 

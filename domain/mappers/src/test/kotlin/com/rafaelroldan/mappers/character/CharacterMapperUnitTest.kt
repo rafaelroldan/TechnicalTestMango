@@ -4,8 +4,8 @@ import com.rafaelroldan.dto.AvatarImageDto
 import com.rafaelroldan.dto.CharacterDto
 import com.rafaelroldan.dto.GenericListDto
 import com.rafaelroldan.dto.result.Data
-import com.rafaelroldan.dto.result.Response
-import com.rafaelroldan.dto.result.Result
+import com.rafaelroldan.dto.result.MarvelResponse
+import com.rafaelroldan.mappers.MarvelResult
 import com.rafaelroldan.model.CharacterModel
 import org.junit.Test
 
@@ -36,7 +36,7 @@ class CharacterMapperUnitTest {
             resourceURI =  "String"
         )
 
-        val response = Response<CharacterDto>(
+        val response = MarvelResponse<CharacterDto>(
             data = Data<CharacterDto>(
                 count = 0,
                 limit = 0,
@@ -46,18 +46,6 @@ class CharacterMapperUnitTest {
             )
         )
 
-        val result = Result<CharacterModel>(
-            code = 200,
-            error = false,
-            data = Data<CharacterModel>(
-                count = 0,
-                limit = 0,
-                offset = 0,
-                results = arrayListOf(model),
-                total=  0,
-            )
-        )
-
-        assertEquals(result,mapper.toDomainModel(response))
+        assertEquals(MarvelResult.Success(arrayListOf(model)),mapper.toDomainModel(response))
     }
 }
